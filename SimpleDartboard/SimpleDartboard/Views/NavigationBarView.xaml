@@ -8,7 +8,9 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <DockPanel>
-            <Label Content="NavigationBarView" />
+            <StackPanel>
+                <Label Content="NavigationBar" />
+            </StackPanel>
         </DockPanel>
     </Grid>
 </UserControl>
