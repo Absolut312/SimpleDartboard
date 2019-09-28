@@ -4,14 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleDartboard"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:mainviewmodels="clr-namespace:SimpleDartboard.PAL.ViewModels;assembly=SimpleDartboard.PAL"
         xmlns:views="clr-namespace:SimpleDartboard.Views"
         mc:Ignorable="d"
-        Title="SimpleDartboard" Height="350" Width="525">
+        Title="SimpleDartboard" Height="350" Width="525"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
     <Window.Resources>
-        <DataTemplate x:Name="mainViewTemplate" DataType="{x:Type mainviewmodels:MainViewModel}">
-            <views:MainView DataContext="{Binding}" />
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary x:Name="ThemeDictionary">
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary
+                            Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.defaults.xaml" />
+                        <ResourceDictionary
+                            Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.dark.xaml" />
+                        <ResourceDictionary
+                            Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/materialdesigncolor.teal.xaml" />
+                        <ResourceDictionary
+                            Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/materialdesigncolor.deeppurple.xaml" />
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Name="mainViewTemplate" DataType="{x:Type mainviewmodels:MainViewModel}">
+                <views:MainView DataContext="{Binding}" />
+            </DataTemplate>
+        </ResourceDictionary>
     </Window.Resources>
     <Grid>
         <ContentControl Content="{Binding}" />
