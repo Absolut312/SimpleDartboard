@@ -69,6 +69,9 @@
     <Compile Include="Views\NavigationBarView.xaml.cs">
       <DependentUpon>NavigationBarView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PlayerScoreBoardView.xaml.cs">
+      <DependentUpon>PlayerScoreBoardView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -84,6 +87,7 @@
     </Compile>
     <Page Include="Views\MainView.xaml" />
     <Page Include="Views\NavigationBarView.xaml" />
+    <Page Include="Views\PlayerScoreBoardView.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />

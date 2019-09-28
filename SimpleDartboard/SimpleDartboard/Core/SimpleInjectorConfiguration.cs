@@ -16,6 +16,7 @@ namespace SimpleDartboard.Core
         {
             container.Register<IMainViewModel, MainViewModel>();
             container.Register<INavigationBarViewModel, NavigationBarViewModel>();
+            container.Register<IPlayerScoreBoardViewModel, PlayerScoreBoardViewModel>();
         }
     }
 }

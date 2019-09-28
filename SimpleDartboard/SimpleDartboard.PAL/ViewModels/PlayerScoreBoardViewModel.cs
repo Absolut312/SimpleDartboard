@@ -7,6 +7,5 @@ namespace SimpleDartboard.PAL.ViewModels
     {
         public string Name { get; set; }
         public int CurrentScore { get; set; }
-        public ObservableCollection<int> ScoreActions { get; set; }
     }
 }
