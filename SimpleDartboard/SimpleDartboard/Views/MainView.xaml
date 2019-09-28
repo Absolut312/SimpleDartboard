@@ -4,12 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:views="clr-namespace:SimpleDartboard.Views"
-             xmlns:navigationBarviewmodels="clr-namespace:SimpleDartboard.PAL.ViewModels;assembly=SimpleDartboard.PAL"
+             xmlns:viewmodels="clr-namespace:SimpleDartboard.PAL.ViewModels;assembly=SimpleDartboard.PAL"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <DataTemplate x:Name="navigationBarViewTemplate" DataType="{x:Type navigationBarviewmodels:NavigationBarViewModel}">
+        <DataTemplate x:Name="navigationBarViewTemplate" DataType="{x:Type viewmodels:NavigationBarViewModel}">
             <views:NavigationBarView DataContext="{Binding}" />
+        </DataTemplate>
+        <DataTemplate x:Name="playerScoreBoardViewTemplate" DataType="{x:Type viewmodels:PlayerScoreBoardViewModel}">
+            <views:PlayerScoreBoardView DataContext="{Binding}" />
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
@@ -17,22 +20,11 @@
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="8*" />
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="8*" />
-            <RowDefinition Height="1*" />
-        </Grid.RowDefinitions>
-        <DockPanel Grid.Column="0" Grid.Row="1">
+        <DockPanel Grid.Column="0">
             <ContentControl Content="{Binding NavigationBarViewModel}" />
         </DockPanel>
-        <DockPanel Grid.Column="1" Grid.Row="0">
-            <Label Content="Header" />
-        </DockPanel>
-        <DockPanel Grid.Column="1" Grid.Row="1">
-            <Label Content="Body" />
-        </DockPanel>
-        <DockPanel Grid.Column="1" Grid.Row="2">
-            <Label Content="Footer" />
+        <DockPanel Grid.Column="1">
+            <ContentControl Content="{Binding ContentViewModel}" />
         </DockPanel>
     </Grid>
 </UserControl>

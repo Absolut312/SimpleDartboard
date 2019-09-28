@@ -7,9 +7,13 @@ namespace SimpleDartboard.PAL.ViewModels
         public INavigationBarViewModel NavigationBarViewModel { get; set; }
         public IContentViewModel ContentViewModel { get; set; }
 
-        public MainViewModel(INavigationBarViewModel navigationBarViewModel)
+        public MainViewModel(INavigationBarViewModel navigationBarViewModel,
+            IPlayerScoreBoardViewModel playerScoreBoardViewModel)
         {
             NavigationBarViewModel = navigationBarViewModel;
+            playerScoreBoardViewModel.Name = "Player 1";
+            playerScoreBoardViewModel.CurrentScore = 501;
+            ContentViewModel = playerScoreBoardViewModel;
             Mediator.Register(MessageType.ChangeMainViewContent, ChangeContentViewModel);
         }
 
