@@ -58,6 +58,9 @@
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\NavigationBarView.xaml.cs">
+      <DependentUpon>NavigationBarView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,6 +75,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\MainView.xaml" />
+    <Page Include="Views\NavigationBarView.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />

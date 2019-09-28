@@ -15,6 +15,7 @@ namespace SimpleDartboard.Core
         private static void RegisterViewModels(Container container)
         {
             container.Register<IMainViewModel, MainViewModel>();
+            container.Register<INavigationBarViewModel, NavigationBarViewModel>();
         }
     }
 }
