@@ -39,6 +39,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\BaseViewModel.cs" />
+    <Compile Include="Core\Mediator.cs" />
+    <Compile Include="Core\MessageType.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\IMainViewModel.cs" />
