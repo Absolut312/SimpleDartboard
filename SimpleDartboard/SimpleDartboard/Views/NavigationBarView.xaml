@@ -9,8 +9,7 @@
     <Grid>
         <DockPanel>
             <StackPanel>
-                <Button Content="PlayerScoreBoard" Command="{Binding ChangeToDummyPlayerScoreBoard}" />
-                <Button Content="DartBoard" Command="{Binding ChangeToDummyDartBoardInput}" />
+                <Button Content="DartGame" Command="{Binding ChangeToDartGame}" />
             </StackPanel>
         </DockPanel>
     </Grid>
