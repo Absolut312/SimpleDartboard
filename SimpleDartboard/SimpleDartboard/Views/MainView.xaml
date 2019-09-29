@@ -14,6 +14,9 @@
         <DataTemplate x:Name="playerScoreBoardViewTemplate" DataType="{x:Type viewmodels:PlayerScoreBoardViewModel}">
             <views:PlayerScoreBoardView DataContext="{Binding}" />
         </DataTemplate>
+        <DataTemplate x:Name="dartBoardScoreInputViewTemplate" DataType="{x:Type viewmodels:DartBoardScoreInputViewModel}">
+            <views:DartBoardScoreInputView DataContext="{Binding}" />
+        </DataTemplate>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
