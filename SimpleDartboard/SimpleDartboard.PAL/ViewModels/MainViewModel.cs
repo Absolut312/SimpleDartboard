@@ -5,15 +5,21 @@ namespace SimpleDartboard.PAL.ViewModels
     public class MainViewModel : BaseViewModel, IMainViewModel
     {
         public INavigationBarViewModel NavigationBarViewModel { get; set; }
-        public IContentViewModel ContentViewModel { get; set; }
+        private IContentViewModel _contentViewModel;
 
-        public MainViewModel(INavigationBarViewModel navigationBarViewModel,
-            IPlayerScoreBoardViewModel playerScoreBoardViewModel)
+        public IContentViewModel ContentViewModel
+        {
+            get { return _contentViewModel; }
+            set
+            {
+                _contentViewModel = value;
+                OnPropertyChanged("ContentViewModel");
+            }
+        }
+
+        public MainViewModel(INavigationBarViewModel navigationBarViewModel)
         {
             NavigationBarViewModel = navigationBarViewModel;
-            playerScoreBoardViewModel.Name = "Player 1";
-            playerScoreBoardViewModel.CurrentScore = 501;
-            ContentViewModel = playerScoreBoardViewModel;
             Mediator.Register(MessageType.ChangeMainViewContent, ChangeContentViewModel);
         }
 

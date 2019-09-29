@@ -9,7 +9,7 @@
     <Grid>
         <DockPanel>
             <StackPanel>
-                <Label Content="NavigationBar" />
+                <Button Content="PlayerScoreBoard" Command="{Binding ChangeToDummyPlayerScoreboard}" />
             </StackPanel>
         </DockPanel>
     </Grid>
