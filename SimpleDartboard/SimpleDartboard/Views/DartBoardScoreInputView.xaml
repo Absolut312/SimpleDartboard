@@ -9,9 +9,12 @@
     <Grid>
         <DockPanel>
             <StackPanel Orientation="Horizontal">
-                <Label Content="Punkte:" />
-                <TextBox Text="{Binding SelectedScoreAction}" MinWidth="50" />
-                <Button Content="Bestätigen" Command="{Binding AddScoreActionForSelectedPlayer}" />
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Punkte:" VerticalAlignment="Center" />
+                    <TextBox Margin="10,0,0,0" VerticalAlignment="Center" Text="{Binding SelectedScoreAction}" MinWidth="50" />
+                </StackPanel>
+                <Button Margin="25,0,0,0" Content="Bestätigen" VerticalAlignment="Center"
+                        Command="{Binding AddScoreActionForSelectedPlayer}" />
             </StackPanel>
         </DockPanel>
     </Grid>

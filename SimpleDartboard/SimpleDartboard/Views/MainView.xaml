@@ -11,11 +11,8 @@
         <DataTemplate x:Name="navigationBarViewTemplate" DataType="{x:Type viewmodels:NavigationBarViewModel}">
             <views:NavigationBarView DataContext="{Binding}" />
         </DataTemplate>
-        <DataTemplate x:Name="playerScoreBoardViewTemplate" DataType="{x:Type viewmodels:PlayerScoreBoardViewModel}">
-            <views:PlayerScoreBoardView DataContext="{Binding}" />
-        </DataTemplate>
-        <DataTemplate x:Name="dartBoardScoreInputViewTemplate" DataType="{x:Type viewmodels:DartBoardScoreInputViewModel}">
-            <views:DartBoardScoreInputView DataContext="{Binding}" />
+        <DataTemplate x:Name="dartGameViewTemplate" DataType="{x:Type viewmodels:DartGameViewModel}">
+            <views:DartGameView DataContext="{Binding}" />
         </DataTemplate>
     </UserControl.Resources>
     <Grid>

@@ -6,30 +6,19 @@ namespace SimpleDartboard.PAL.ViewModels
 {
     public class NavigationBarViewModel : BaseViewModel, INavigationBarViewModel
     {
-        private IPlayerScoreBoardViewModel _playerScoreBoardViewModel;
-        private IDartBoardScoreInputViewModel _dartBoardScoreInputViewModel;
-        public ICommand ChangeToDummyPlayerScoreBoard { get; set; }
-        public ICommand ChangeToDummyDartBoardInput { get; set; }
+        private IDartGameViewModel _dartGameViewModel;
 
-        public NavigationBarViewModel(IPlayerScoreBoardViewModel playerScoreBoardViewModel,
-            IDartBoardScoreInputViewModel dartBoardScoreInputViewModel)
+        public NavigationBarViewModel(IDartGameViewModel dartGameViewModel)
         {
-            _playerScoreBoardViewModel = playerScoreBoardViewModel;
-            _dartBoardScoreInputViewModel = dartBoardScoreInputViewModel;
-            ChangeToDummyPlayerScoreBoard = new RelayCommand(SendRouteMessageForPlayerScoreboard);
-            ChangeToDummyDartBoardInput = new RelayCommand(SendRouteMessageForDartBoardInput);
+            _dartGameViewModel = dartGameViewModel;
+            ChangeToDartGame = new RelayCommand(SendChangeRouteToDartGameRequest);
         }
 
-        private void SendRouteMessageForPlayerScoreboard()
-        {
-            _playerScoreBoardViewModel.Name = "Player";
-            _playerScoreBoardViewModel.CurrentScore += 1;
-            Mediator.NotifyColleagues(MessageType.ChangeMainViewContent, _playerScoreBoardViewModel);
-        }
+        public ICommand ChangeToDartGame { get; set; }
 
-        private void SendRouteMessageForDartBoardInput()
+        private void SendChangeRouteToDartGameRequest()
         {
-            Mediator.NotifyColleagues(MessageType.ChangeMainViewContent, _dartBoardScoreInputViewModel);
+            Mediator.NotifyColleagues(MessageType.ChangeMainViewContent, _dartGameViewModel);
         }
     }
 }

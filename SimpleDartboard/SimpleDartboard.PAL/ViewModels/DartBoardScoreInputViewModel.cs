@@ -27,7 +27,7 @@ namespace SimpleDartboard.PAL.ViewModels
 
         private void ReduceCurrentScoreForSelectedPlayer()
         {
-            Mediator.NotifyColleagues(MessageType.ChangeMainViewContent, _selectedScoreAction);
+            Mediator.NotifyColleagues(MessageType.ReduceScoreForSelectedPlayer, _selectedScoreAction);
         }
     }
 }
