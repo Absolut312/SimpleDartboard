@@ -7,19 +7,29 @@ namespace SimpleDartboard.PAL.ViewModels
     public class NavigationBarViewModel : BaseViewModel, INavigationBarViewModel
     {
         private IPlayerScoreBoardViewModel _playerScoreBoardViewModel;
-        public ICommand ChangeToDummyPlayerScoreboard { get; set; }
+        private IDartBoardScoreInputViewModel _dartBoardScoreInputViewModel;
+        public ICommand ChangeToDummyPlayerScoreBoard { get; set; }
+        public ICommand ChangeToDummyDartBoardInput { get; set; }
 
-        public NavigationBarViewModel(IPlayerScoreBoardViewModel playerScoreBoardViewModel)
+        public NavigationBarViewModel(IPlayerScoreBoardViewModel playerScoreBoardViewModel,
+            IDartBoardScoreInputViewModel dartBoardScoreInputViewModel)
         {
             _playerScoreBoardViewModel = playerScoreBoardViewModel;
-            ChangeToDummyPlayerScoreboard = new RelayCommand(SendRouteMessageForPlayerScoreboard);
+            _dartBoardScoreInputViewModel = dartBoardScoreInputViewModel;
+            ChangeToDummyPlayerScoreBoard = new RelayCommand(SendRouteMessageForPlayerScoreboard);
+            ChangeToDummyDartBoardInput = new RelayCommand(SendRouteMessageForDartBoardInput);
         }
 
         private void SendRouteMessageForPlayerScoreboard()
         {
-            _playerScoreBoardViewModel.CurrentScore += 1;
             _playerScoreBoardViewModel.Name = "Player";
+            _playerScoreBoardViewModel.CurrentScore += 1;
             Mediator.NotifyColleagues(MessageType.ChangeMainViewContent, _playerScoreBoardViewModel);
+        }
+
+        private void SendRouteMessageForDartBoardInput()
+        {
+            Mediator.NotifyColleagues(MessageType.ChangeMainViewContent, _dartBoardScoreInputViewModel);
         }
     }
 }
