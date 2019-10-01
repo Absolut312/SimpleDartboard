@@ -4,6 +4,6 @@ namespace SimpleDartboard.PAL.ViewModels
 {
     public interface IDartBoardScoreInputViewModel : IContentViewModel
     {
-        ICommand AddScoreActionForSelectedPlayer { get; set; }
+        ICommand AddScoreActionForSelectedPlayerCommand { get; set; }
     }
 }

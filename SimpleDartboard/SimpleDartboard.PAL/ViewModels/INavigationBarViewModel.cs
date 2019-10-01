@@ -4,6 +4,7 @@ namespace SimpleDartboard.PAL.ViewModels
 {
     public interface INavigationBarViewModel
     {
-        ICommand ChangeToDartGame { get; set; }
+        ICommand ChangeToDartGameCommand { get; set; }
+        ICommand StartNewGameCommand { get; set; }
     }
 }

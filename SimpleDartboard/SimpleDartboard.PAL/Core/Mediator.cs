@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SimpleDartboard.PAL.Core
 {
@@ -18,9 +19,13 @@ namespace SimpleDartboard.PAL.Core
                 return;
             }
 
-            if (_actionDictionary[messageType].Exists(x => x.Method.ToString() == callback.Method.ToString()))
+            if (!_actionDictionary[messageType].Exists(x => x.Method.ToString() == callback.Method.ToString()))
             {
                 _actionDictionary[messageType].Add(callback);
+            }
+            else
+            {
+                Trace.WriteLine("Die Methode "+ callback.Method.ToString()+" ist bereits registriert!");
             }
         }
 

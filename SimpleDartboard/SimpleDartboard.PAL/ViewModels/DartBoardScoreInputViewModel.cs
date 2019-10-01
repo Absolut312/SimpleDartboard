@@ -6,7 +6,7 @@ namespace SimpleDartboard.PAL.ViewModels
 {
     public class DartBoardScoreInputViewModel : BaseViewModel, IDartBoardScoreInputViewModel
     {
-        public ICommand AddScoreActionForSelectedPlayer { get; set; }
+        public ICommand AddScoreActionForSelectedPlayerCommand { get; set; }
         private int _selectedScoreAction;
 
         public int SelectedScoreAction
@@ -22,7 +22,7 @@ namespace SimpleDartboard.PAL.ViewModels
         public DartBoardScoreInputViewModel()
         {
             _selectedScoreAction = 0;
-            AddScoreActionForSelectedPlayer = new RelayCommand(ReduceCurrentScoreForSelectedPlayer);
+            AddScoreActionForSelectedPlayerCommand = new RelayCommand(ReduceCurrentScoreForSelectedPlayer);
         }
 
         private void ReduceCurrentScoreForSelectedPlayer()

@@ -19,6 +19,7 @@ namespace SimpleDartboard.Core
             container.Register<IPlayerScoreBoardViewModel, PlayerScoreBoardViewModel>();
             container.Register<IDartBoardScoreInputViewModel, DartBoardScoreInputViewModel>();
             container.Register<IDartGameViewModel, DartGameViewModel>();
+            container.Register<IDartGameSettingViewModel, DartGameSettingViewModel>();
         }
     }
 }

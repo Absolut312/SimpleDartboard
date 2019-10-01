@@ -15,7 +15,7 @@
             <local:DartBoardScoreInputView DataContext="{Binding}" />
         </DataTemplate>
     </UserControl.Resources>
-    <Grid>
+    <Grid Margin="5,5,5,5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*" />
             <ColumnDefinition Width="5*" />
@@ -26,9 +26,9 @@
             <RowDefinition Height="4*" />
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Grid.ColumnSpan="2">
-            <StackPanel>
-                <Button Content="Neues Spiel" Command="{Binding ResetGame}"></Button>
-                <Button Content="Spieler wechseln" Command="{Binding SwitchPlayer}"></Button>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Neustart" Command="{Binding ResetGameCommand}"></Button>
+                <Button Content="Spieler wechseln" Command="{Binding SwitchPlayerCommand}"></Button>
             </StackPanel>
         </DockPanel>
         <DockPanel Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0">

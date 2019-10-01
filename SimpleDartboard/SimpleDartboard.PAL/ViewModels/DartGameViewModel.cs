@@ -6,7 +6,7 @@ namespace SimpleDartboard.PAL.ViewModels
 {
     public class DartGameViewModel : BaseViewModel, IDartGameViewModel
     {
-        private const int StartingScore = 501;
+        private DartGameSetting _dartGameSetting;
         private IPlayerScoreBoardViewModel _playerOne;
         private IPlayerScoreBoardViewModel _playerTwo;
         private IPlayerScoreBoardViewModel _selectedPlayer;
@@ -44,24 +44,34 @@ namespace SimpleDartboard.PAL.ViewModels
             }
         }
 
-        public ICommand SwitchPlayer { get; set; }
-        public ICommand ResetGame { get; set; }
+        public ICommand SwitchPlayerCommand { get; set; }
+        public ICommand ResetGameCommand { get; set; }
 
         public DartGameViewModel(IPlayerScoreBoardViewModel playerOne, IPlayerScoreBoardViewModel playerTwo,
             IDartBoardScoreInputViewModel dartBoardScoreInputViewModel)
         {
             DartBoardScoreInput = dartBoardScoreInputViewModel;
+            _dartGameSetting = new DartGameSetting();
             _playerOne = playerOne;
             _playerTwo = playerTwo;
-            _playerOne.Name = "Player 1";
-            _playerTwo.Name = "Player 2";
 
-            ResetGame = new RelayCommand(StartNewGame);
-            SwitchPlayer = new RelayCommand(SwitchSelectedPlayer);
+            ResetGameCommand = new RelayCommand(ResetGame);
+            SwitchPlayerCommand = new RelayCommand(SwitchSelectedPlayer);
             SelectedPlayer = _playerOne;
             OpponentPlayer = _playerTwo;
-            StartNewGame();
             Mediator.Register(MessageType.ReduceScoreForSelectedPlayer, ReduceScoreForSelectedPlayer);
+            Mediator.Register(MessageType.StartGame, InitializeGameSetting);
+        }
+
+        private void InitializeGameSetting(object gameSetting)
+        {
+            var dartGameSetting = gameSetting as DartGameSetting;
+            if (dartGameSetting == null) return;
+            _dartGameSetting = dartGameSetting;
+            _playerOne.Name = dartGameSetting.PlayerOneName;
+            _playerOne.CurrentScore = dartGameSetting.StartingScore;
+            _playerTwo.Name = dartGameSetting.PlayerTwoName;
+            _playerTwo.CurrentScore = dartGameSetting.StartingScore;
         }
 
         private void ReduceScoreForSelectedPlayer(object scoreAction)
@@ -76,10 +86,9 @@ namespace SimpleDartboard.PAL.ViewModels
             OpponentPlayer = currentSelectedPlayer;
         }
 
-        private void StartNewGame()
+        private void ResetGame()
         {
-            SelectedPlayer.CurrentScore = StartingScore;
-            OpponentPlayer.CurrentScore = StartingScore;
+            Mediator.NotifyColleagues(MessageType.StartGame, _dartGameSetting);
         }
     }
 }
