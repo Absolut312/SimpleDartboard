@@ -70,13 +70,15 @@ namespace SimpleDartboard.PAL.ViewModels
             _dartGameSetting = dartGameSetting;
             _playerOne.Name = dartGameSetting.PlayerOneName;
             _playerOne.CurrentScore = dartGameSetting.StartingScore;
+            _playerOne.ClearScoreActions();
             _playerTwo.Name = dartGameSetting.PlayerTwoName;
             _playerTwo.CurrentScore = dartGameSetting.StartingScore;
+            _playerTwo.ClearScoreActions();
         }
 
         private void ReduceScoreForSelectedPlayer(object scoreAction)
         {
-            SelectedPlayer.CurrentScore -= scoreAction is int ? (int) scoreAction : 0;
+            SelectedPlayer.AddScoreAction(scoreAction is int ? (int) scoreAction : 0);
         }
 
         private void SwitchSelectedPlayer()

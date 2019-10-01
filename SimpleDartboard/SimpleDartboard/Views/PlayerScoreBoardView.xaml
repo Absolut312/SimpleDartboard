@@ -10,7 +10,7 @@
         <DockPanel>
             <StackPanel>
                 <Label Content="{Binding Name}" />
-                <Label Content="{Binding CurrentScore}" />
+                <Label Content="{Binding CurrentScore}" FontSize="25" FontWeight="Bold" />
             </StackPanel>
         </DockPanel>
     </Grid>
