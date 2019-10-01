@@ -6,19 +6,35 @@ namespace SimpleDartboard.PAL.ViewModels
 {
     public class NavigationBarViewModel : BaseViewModel, INavigationBarViewModel
     {
+        private IDartGameSettingViewModel _dartGameSettingViewModel;
         private IDartGameViewModel _dartGameViewModel;
-
-        public NavigationBarViewModel(IDartGameViewModel dartGameViewModel)
+        public NavigationBarViewModel(IDartGameViewModel dartGameViewModel, 
+            IDartGameSettingViewModel dartGameSettingViewModel)
         {
             _dartGameViewModel = dartGameViewModel;
-            ChangeToDartGame = new RelayCommand(SendChangeRouteToDartGameRequest);
+            _dartGameSettingViewModel = dartGameSettingViewModel;
+            ChangeToDartGameCommand = new RelayCommand(ChangeToDartGame);
+            StartNewGameCommand = new RelayCommand(StartNewGame);
+            Mediator.Register(MessageType.StartGame, StartGame);
+            
         }
 
-        public ICommand ChangeToDartGame { get; set; }
+        private void StartGame(object obj)
+        {
+            ChangeToDartGame();
+        }
 
-        private void SendChangeRouteToDartGameRequest()
+        private void ChangeToDartGame()
         {
             Mediator.NotifyColleagues(MessageType.ChangeMainViewContent, _dartGameViewModel);
         }
+
+        private void StartNewGame()
+        {
+            Mediator.NotifyColleagues(MessageType.ChangeMainViewContent, _dartGameSettingViewModel);
+        }
+
+        public ICommand ChangeToDartGameCommand { get; set; }
+        public ICommand StartNewGameCommand { get; set; }
     }
 }

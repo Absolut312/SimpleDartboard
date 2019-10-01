@@ -14,7 +14,7 @@
                     <TextBox Margin="10,0,0,0" VerticalAlignment="Center" Text="{Binding SelectedScoreAction}" MinWidth="50" />
                 </StackPanel>
                 <Button Margin="25,0,0,0" Content="Bestätigen" VerticalAlignment="Center"
-                        Command="{Binding AddScoreActionForSelectedPlayer}" />
+                        Command="{Binding AddScoreActionForSelectedPlayerCommand}" />
             </StackPanel>
         </DockPanel>
     </Grid>
