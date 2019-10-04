@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using SimpleDartboard.PAL.Core;
 using SimpleDartboard.PAL.Models;
 using SimpleDartboard.PAL.UseCases.DartGameSettings.Load;
+using SimpleDartboard.PAL.UseCases.DartGameSettings.Save;
 
 namespace SimpleDartboard.PAL.ViewModels
 {
@@ -11,6 +12,7 @@ namespace SimpleDartboard.PAL.ViewModels
         private DartGameSetting _dartGameSetting;
         public ICommand StartGameCommand { get; set; }
         private readonly IDartGameSettingLoadService _dartGameSettingLoadService;
+        private readonly IDartGameSettingSaveService _dartGameSettingSaveService;
 
         public string PlayerOneName
         {
@@ -42,9 +44,11 @@ namespace SimpleDartboard.PAL.ViewModels
             }
         }
 
-        public DartGameSettingViewModel(IDartGameSettingLoadService dartGameSettingLoadService)
+        public DartGameSettingViewModel(IDartGameSettingLoadService dartGameSettingLoadService,
+            IDartGameSettingSaveService dartGameSettingSaveService)
         {
             _dartGameSettingLoadService = dartGameSettingLoadService;
+            _dartGameSettingSaveService = dartGameSettingSaveService;
             InitializeDartGameSetting(null);
             StartGameCommand = new RelayCommand(StartGame, () =>
             {
@@ -61,6 +65,7 @@ namespace SimpleDartboard.PAL.ViewModels
 
         private void StartGame()
         {
+            _dartGameSettingSaveService.Save(_dartGameSetting);
             Mediator.NotifyColleagues(MessageType.StartGame, _dartGameSetting);
         }
     }

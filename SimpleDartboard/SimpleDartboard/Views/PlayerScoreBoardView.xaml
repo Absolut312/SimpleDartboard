@@ -10,21 +10,23 @@
         <DockPanel>
             <StackPanel Orientation="Vertical">
                 <StackPanel>
-                    <ListView ItemsSource="{Binding ScoreActions}" Height="200">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="{Binding ActionIndex}" />    
-                                    <Label Content="{Binding Score}" />    
-                                    <Label Content="Punkte-Treffer" />    
-                                </StackPanel>
-                                
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    <Border  BorderBrush="DarkSlateGray" BorderThickness="2,2,2,2">
+                        <ListView ItemsSource="{Binding ScoreActions}" Height="200">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="{Binding ActionIndex}" />
+                                        <Label Content="{Binding Score}" />
+                                        <Label Content="Punkte-Treffer" />
+                                    </StackPanel>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Border>
                 </StackPanel>
-                <StackPanel>
-                    <Label Content="{Binding Name}" />
+                <StackPanel Margin="25,25,0,0">
+                    <Label Content="{Binding Name}" FontSize="20" />
                     <Label Content="{Binding CurrentScore}" FontSize="25" FontWeight="Bold" />
                 </StackPanel>
             </StackPanel>

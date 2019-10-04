@@ -35,7 +35,9 @@
             </StackPanel>
         </DockPanel>
         <DockPanel Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0">
+            <Border BorderBrush="DarkSlateGray" BorderThickness="0,0,0,5">
             <ContentControl Content="{Binding DartBoardScoreControl}" />
+            </Border>
         </DockPanel>
         <DockPanel Grid.Row="2" Grid.RowSpan="2" Grid.Column="0">
             <Border BorderBrush="DarkSlateGray" BorderThickness="0,0,5,0">
