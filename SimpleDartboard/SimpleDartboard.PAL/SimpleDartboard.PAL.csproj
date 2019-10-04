@@ -63,11 +63,13 @@
     <Compile Include="Core\MessageType.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\DartBoardScoreControlViewModel.cs" />
     <Compile Include="ViewModels\DartBoardScoreInputViewModel.cs" />
     <Compile Include="ViewModels\DartGameSetting.cs" />
     <Compile Include="ViewModels\DartGameSettingViewModel.cs" />
     <Compile Include="ViewModels\DartGameViewModel.cs" />
     <Compile Include="ViewModels\IContentViewModel.cs" />
+    <Compile Include="ViewModels\IDartBoardScoreControlViewModel.cs" />
     <Compile Include="ViewModels\IDartBoardScoreInputViewModel.cs" />
     <Compile Include="ViewModels\IDartGameSettingViewModel.cs" />
     <Compile Include="ViewModels\IDartGameViewModel.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NavigationBarViewModel.cs" />
     <Compile Include="ViewModels\PlayerScoreBoardViewModel.cs" />
+    <Compile Include="ViewModels\ScoreAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

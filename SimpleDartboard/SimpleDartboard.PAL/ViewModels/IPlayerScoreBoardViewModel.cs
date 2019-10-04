@@ -6,7 +6,9 @@ namespace SimpleDartboard.PAL.ViewModels
     {
         string Name { get; set; }
         int CurrentScore { get; set; }
-        void AddScoreAction(int scoreAction);
+        void AddScoreAction(int score);
         void ClearScoreActions();
+        void UndoLastScoreAction();
+        bool HasScoreActions();
     }
 }

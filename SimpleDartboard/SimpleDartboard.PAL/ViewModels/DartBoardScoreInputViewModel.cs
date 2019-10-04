@@ -21,13 +21,18 @@ namespace SimpleDartboard.PAL.ViewModels
 
         public DartBoardScoreInputViewModel()
         {
-            _selectedScoreAction = 0;
+            _selectedScoreAction = 1;
             AddScoreActionForSelectedPlayerCommand = new RelayCommand(ReduceCurrentScoreForSelectedPlayer);
         }
 
         private void ReduceCurrentScoreForSelectedPlayer()
         {
             Mediator.NotifyColleagues(MessageType.ReduceScoreForSelectedPlayer, _selectedScoreAction);
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

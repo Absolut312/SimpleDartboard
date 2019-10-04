@@ -63,6 +63,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\DartBoardScoreControlView.xaml.cs">
+      <DependentUpon>DartBoardScoreControlView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DartBoardScoreInputView.xaml.cs">
       <DependentUpon>DartBoardScoreInputView.xaml</DependentUpon>
     </Compile>
@@ -94,6 +97,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\DartBoardScoreControlView.xaml" />
     <Page Include="Views\DartBoardScoreInputView.xaml" />
     <Page Include="Views\DartGameSettingView.xaml" />
     <Page Include="Views\DartGameView.xaml" />

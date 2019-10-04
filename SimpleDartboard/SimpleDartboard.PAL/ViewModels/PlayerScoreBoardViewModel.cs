@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using SimpleDartboard.PAL.Core;
@@ -10,12 +11,12 @@ namespace SimpleDartboard.PAL.ViewModels
 
         public PlayerScoreBoardViewModel()
         {
-            ScoreActions = new ObservableCollection<int>();
+            ScoreActions = new ObservableCollection<ScoreAction>();
         }
 
-        private ObservableCollection<int> _scoreActions;
+        private ObservableCollection<ScoreAction> _scoreActions;
 
-        public ObservableCollection<int> ScoreActions
+        public ObservableCollection<ScoreAction> ScoreActions
         {
             get => _scoreActions;
             set
@@ -26,26 +27,41 @@ namespace SimpleDartboard.PAL.ViewModels
             }
         }
 
-        public void AddScoreAction(int scoreAction)
+        public void AddScoreAction(int score)
         {
-            if (scoreAction <= 0) return;
-            ScoreActions.Add(scoreAction);
+            if (score <= 0) return;
+            var scoreActionToAdd = new ScoreAction();
+            scoreActionToAdd.Score = score;
+            scoreActionToAdd.ActionIndex = Convert.ToString(ScoreActions.Count + 1);
+            ScoreActions.Insert(0, scoreActionToAdd);
             if (CurrentScore < 0 || CurrentScore == 0 && !IsLastScoreActionDoubleHit())
             {
-                ScoreActions.RemoveAt(ScoreActions.Count - 1);
+                UndoLastScoreAction();
             }
+
             OnPropertyChanged("CurrentScore");
         }
 
         private bool IsLastScoreActionDoubleHit()
         {
-            return ScoreActions[ScoreActions.Count - 1] == ScoreActions[ScoreActions.Count - 2];
+            return ScoreActions[0] == ScoreActions[1];
         }
 
         public void ClearScoreActions()
         {
             ScoreActions.Clear();
             OnPropertyChanged("CurrentScore");
+        }
+
+        public void UndoLastScoreAction()
+        {
+            ScoreActions.RemoveAt(0);
+            OnPropertyChanged("CurrentScore");
+        }
+
+        public bool HasScoreActions()
+        {
+            return ScoreActions.Count > 0;
         }
 
         public string Name
@@ -63,7 +79,7 @@ namespace SimpleDartboard.PAL.ViewModels
 
         public int CurrentScore
         {
-            get { return _currentScore - ScoreActions.Sum(); }
+            get { return _currentScore - ScoreActions.Sum(x => x.Score); }
 
             set
             {
