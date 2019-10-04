@@ -8,9 +8,25 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <DockPanel>
-            <StackPanel>
-                <Label Content="{Binding Name}" />
-                <Label Content="{Binding CurrentScore}" FontSize="25" FontWeight="Bold" />
+            <StackPanel Orientation="Vertical">
+                <StackPanel>
+                    <ListView ItemsSource="{Binding ScoreActions}" Height="200">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{Binding ActionIndex}" />    
+                                    <Label Content="{Binding Score}" />    
+                                    <Label Content="Punkte-Treffer" />    
+                                </StackPanel>
+                                
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="{Binding Name}" />
+                    <Label Content="{Binding CurrentScore}" FontSize="25" FontWeight="Bold" />
+                </StackPanel>
             </StackPanel>
         </DockPanel>
     </Grid>

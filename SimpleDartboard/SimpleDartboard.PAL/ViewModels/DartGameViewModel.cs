@@ -32,35 +32,43 @@ namespace SimpleDartboard.PAL.ViewModels
             }
         }
 
-        private IDartBoardScoreInputViewModel _dartBoardScoreInput;
+        private IDartBoardScoreControlViewModel _dartBoardScoreControl;
 
-        public IDartBoardScoreInputViewModel DartBoardScoreInput
+        public IDartBoardScoreControlViewModel DartBoardScoreControl
         {
-            get { return _dartBoardScoreInput; }
+            get { return _dartBoardScoreControl; }
             set
             {
-                _dartBoardScoreInput = value;
-                OnPropertyChanged("DartBoardScoreInput");
+                _dartBoardScoreControl = value;
+                OnPropertyChanged("DartBoardScoreControl");
             }
         }
 
         public ICommand SwitchPlayerCommand { get; set; }
         public ICommand ResetGameCommand { get; set; }
+        public ICommand UndoLastScoreActionCommand { get; set; }
 
-        public DartGameViewModel(IPlayerScoreBoardViewModel playerOne, IPlayerScoreBoardViewModel playerTwo,
-            IDartBoardScoreInputViewModel dartBoardScoreInputViewModel)
+        public DartGameViewModel(IPlayerScoreBoardViewModel playerOne,
+            IPlayerScoreBoardViewModel playerTwo,
+            IDartBoardScoreControlViewModel dartBoardScoreControlViewModel)
         {
-            DartBoardScoreInput = dartBoardScoreInputViewModel;
             _dartGameSetting = new DartGameSetting();
             _playerOne = playerOne;
             _playerTwo = playerTwo;
-
+            DartBoardScoreControl = dartBoardScoreControlViewModel;
             ResetGameCommand = new RelayCommand(ResetGame);
             SwitchPlayerCommand = new RelayCommand(SwitchSelectedPlayer);
+            UndoLastScoreActionCommand = new RelayCommand(UndoLastScoreActionCommant,
+                () => { return SelectedPlayer.HasScoreActions(); });
             SelectedPlayer = _playerOne;
             OpponentPlayer = _playerTwo;
             Mediator.Register(MessageType.ReduceScoreForSelectedPlayer, ReduceScoreForSelectedPlayer);
             Mediator.Register(MessageType.StartGame, InitializeGameSetting);
+        }
+
+        private void UndoLastScoreActionCommant()
+        {
+            SelectedPlayer.UndoLastScoreAction();
         }
 
         private void InitializeGameSetting(object gameSetting)
