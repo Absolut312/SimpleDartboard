@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using SimpleDartboard.PAL.Core;
+using SimpleDartboard.PAL.Models;
 
 namespace SimpleDartboard.PAL.ViewModels
 {

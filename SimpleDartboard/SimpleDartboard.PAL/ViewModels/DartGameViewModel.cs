@@ -1,6 +1,7 @@
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using SimpleDartboard.PAL.Core;
+using SimpleDartboard.PAL.Models;
 
 namespace SimpleDartboard.PAL.ViewModels
 {
