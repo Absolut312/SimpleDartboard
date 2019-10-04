@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Newtonsoft.Json;
 using SimpleDartBoard.BLL.UseCases.DartGameSettings.Save;
@@ -12,6 +13,12 @@ namespace SimpleDartBoard.DAL.UseCases.DartGameSettings.Save
             var serializedDartGameSetting = JsonConvert.SerializeObject(dartGameSetting);
             if (!File.Exists(DartGameSettingJsonFileName))
             {
+                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+                                      "/SimpleDartboard"))
+                {
+                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+                                              "/SimpleDartboard");
+                }
                 File.Create(DartGameSettingJsonFileName).Close();
                 
                 File.WriteAllText(DartGameSettingJsonFileName, serializedDartGameSetting);
@@ -22,6 +29,6 @@ namespace SimpleDartBoard.DAL.UseCases.DartGameSettings.Save
             }
         }
 
-        public static string DartGameSettingJsonFileName => "DartGameSetting.json";
+        public static string DartGameSettingJsonFileName =>  Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+"/SimpleDartboard/DartGameSetting.json";
     }
 }
