@@ -61,11 +61,14 @@
     <Compile Include="Core\BaseViewModel.cs" />
     <Compile Include="Core\Mediator.cs" />
     <Compile Include="Core\MessageType.cs" />
+    <Compile Include="Models\DartGameSetting.cs" />
+    <Compile Include="Models\ScoreAction.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UseCases\DartGameSettings\Load\IDartGameSettingLoadService.cs" />
+    <Compile Include="UseCases\DartGameSettings\Save\IDartGameSettingSaveService.cs" />
     <Compile Include="ViewModels\DartBoardScoreControlViewModel.cs" />
     <Compile Include="ViewModels\DartBoardScoreInputViewModel.cs" />
-    <Compile Include="ViewModels\DartGameSetting.cs" />
     <Compile Include="ViewModels\DartGameSettingViewModel.cs" />
     <Compile Include="ViewModels\DartGameViewModel.cs" />
     <Compile Include="ViewModels\IContentViewModel.cs" />
@@ -79,7 +82,6 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NavigationBarViewModel.cs" />
     <Compile Include="ViewModels\PlayerScoreBoardViewModel.cs" />
-    <Compile Include="ViewModels\ScoreAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

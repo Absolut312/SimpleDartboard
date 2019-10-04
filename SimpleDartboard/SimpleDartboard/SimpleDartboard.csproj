@@ -125,6 +125,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SimpleDartBoard.BLL\SimpleDartBoard.BLL.csproj">
+      <Project>{16fb73ff-8a56-4b3d-94be-36e0d35dd5f6}</Project>
+      <Name>SimpleDartBoard.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimpleDartBoard.DAL\SimpleDartBoard.DAL.csproj">
+      <Project>{23a4a685-cfc2-424b-80a7-1051c3f87799}</Project>
+      <Name>SimpleDartBoard.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimpleDartboard.PAL\SimpleDartboard.PAL.csproj">
       <Project>{ac508c97-e466-4aae-93ad-71e0f304c6c4}</Project>
       <Name>SimpleDartboard.PAL</Name>

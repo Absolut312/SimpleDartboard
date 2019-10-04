@@ -1,7 +1,7 @@
 using System;
 using SimpleDartboard.PAL.Core;
 
-namespace SimpleDartboard.PAL.ViewModels
+namespace SimpleDartboard.PAL.Models
 {
     public class ScoreAction : BaseViewModel
     {
