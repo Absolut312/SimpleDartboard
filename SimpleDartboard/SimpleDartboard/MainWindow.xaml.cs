@@ -1,4 +1,6 @@
-﻿using SimpleDartboard.PAL.ViewModels;
+﻿using MaterialDesignThemes.Wpf;
+using SimpleDartboard.PAL.ViewModels;
+using SimpleDartboard.Theme;
 
 namespace SimpleDartboard
 {
@@ -9,6 +11,8 @@ namespace SimpleDartboard
     {
         public MainWindow(IMainViewModel mainViewModel)
         {
+            var paletteHelper = new PaletteHelper();
+            paletteHelper.SetTheme(new CustomizedMaterialDesign());
             InitializeComponent();
             this.DataContext = mainViewModel;
         }

@@ -63,6 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Theme\CustomizedMaterialDesign.cs" />
     <Compile Include="Views\DartBoardScoreControlView.xaml.cs">
       <DependentUpon>DartBoardScoreControlView.xaml</DependentUpon>
     </Compile>

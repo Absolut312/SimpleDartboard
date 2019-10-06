@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:views="clr-namespace:SimpleDartboard.Views"
              xmlns:viewmodels="clr-namespace:SimpleDartboard.PAL.ViewModels;assembly=SimpleDartboard.PAL"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -24,10 +25,14 @@
             <ColumnDefinition Width="8*" />
         </Grid.ColumnDefinitions>
         <DockPanel Grid.Column="0">
-            <ContentControl Content="{Binding NavigationBarViewModel}" />
+            <materialDesign:Card Padding="32" Margin="16">
+                <ContentControl Content="{Binding NavigationBarViewModel}" />
+            </materialDesign:Card>
         </DockPanel>
         <DockPanel Grid.Column="1">
-            <ContentControl Content="{Binding ContentViewModel}" />
+            <materialDesign:Card Padding="32" Margin="16">
+                <ContentControl Content="{Binding ContentViewModel}" />
+            </materialDesign:Card>
         </DockPanel>
     </Grid>
 </UserControl>
