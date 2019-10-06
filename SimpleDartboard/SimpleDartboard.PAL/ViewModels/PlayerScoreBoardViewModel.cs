@@ -13,6 +13,13 @@ namespace SimpleDartboard.PAL.ViewModels
         public PlayerScoreBoardViewModel()
         {
             _scoreActions = new List<ScoreAction>();
+            Mediator.Register(MessageType.StartGame, ClearScoreActions);
+        }
+
+        private void ClearScoreActions(object obj)
+        {
+            _scoreActions.Clear();
+            OnPropertyChanged("AverageScore");
         }
 
 
@@ -51,6 +58,7 @@ namespace SimpleDartboard.PAL.ViewModels
             {
                 _scoreActions.Add(scoreAction);
             }
+
             OnPropertyChanged("AverageScore");
         }
 

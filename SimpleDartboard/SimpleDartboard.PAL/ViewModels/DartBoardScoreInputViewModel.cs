@@ -58,11 +58,11 @@ namespace SimpleDartboard.PAL.ViewModels
 
         private void ReduceCurrentScoreForSelectedPlayer()
         {
+            var actionToken = new ActionTokenViewModel();
+            ActionTokens.Add(actionToken);
             Mediator.NotifyColleagues(MessageType.ReduceScoreForSelectedPlayer,
                 new ScoreAction
                     {Multiplier = _selectedScoreAction.ScoreMultiplier, Score = _selectedScoreAction.Score});
-            var actionToken = new ActionTokenViewModel();
-            ActionTokens.Add(actionToken);
         }
     }
 }
