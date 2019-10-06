@@ -10,5 +10,6 @@ namespace SimpleDartboard.PAL.ViewModels
         ICommand SwitchPlayerCommand { get; set; }
         ICommand ResetGameCommand { get; set; }
         ICommand UndoLastScoreActionCommand { get; set; }
+        string AverageScore { get; }
     }
 }

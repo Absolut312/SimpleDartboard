@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using SimpleDartboard.PAL.Core;
@@ -45,25 +46,35 @@ namespace SimpleDartboard.PAL.ViewModels
                 OnPropertyChanged("DartBoardScoreControl");
             }
         }
+        
+        public string AverageScore
+        {
+            get
+            {
+                if (_scoreActionHistoryPerRound.Count == 0) return "--";
+                var summedScoreActions = _scoreActionHistoryPerRound.Sum(x => x.Score * x.Multiplier) / _scoreActionHistoryPerRound.Count;
+                return "Durchschnitt pro Runde: " + summedScoreActions;
+            }
+        }
 
         public ICommand SwitchPlayerCommand { get; set; }
         public ICommand ResetGameCommand { get; set; }
         public ICommand UndoLastScoreActionCommand { get; set; }
-        private List<ScoreAction> _roundScoreActionHistory;
+        private List<ScoreAction> _scoreActionHistoryPerRound;
 
         public DartGameViewModel(IPlayerScoreBoardViewModel playerOne,
             IPlayerScoreBoardViewModel playerTwo,
             IDartBoardScoreControlViewModel dartBoardScoreControlViewModel)
         {
             _dartGameSetting = new DartGameSetting();
-            _roundScoreActionHistory = new List<ScoreAction>();
+            _scoreActionHistoryPerRound = new List<ScoreAction>();
             _playerOne = playerOne;
             _playerTwo = playerTwo;
             DartBoardScoreControl = dartBoardScoreControlViewModel;
             ResetGameCommand = new RelayCommand(ResetGame);
             SwitchPlayerCommand = new RelayCommand(SwitchSelectedPlayer);
             UndoLastScoreActionCommand =
-                new RelayCommand(UndoLastScoreAction, () => _roundScoreActionHistory.Count > 0);
+                new RelayCommand(UndoLastScoreAction, () => _scoreActionHistoryPerRound.Count > 0);
             SelectedPlayer = _playerOne;
             OpponentPlayer = _playerTwo;
             Mediator.Register(MessageType.ReduceScoreForSelectedPlayer, ReduceScoreForSelectedPlayer);
@@ -72,16 +83,17 @@ namespace SimpleDartboard.PAL.ViewModels
 
         private void UndoLastScoreAction()
         {
-            var lastScoreActionIndex = _roundScoreActionHistory.Count - 1;
-            var scoreActionToRevert = _roundScoreActionHistory[lastScoreActionIndex];
+            var lastScoreActionIndex = _scoreActionHistoryPerRound.Count - 1;
+            var scoreActionToRevert = _scoreActionHistoryPerRound[lastScoreActionIndex];
             Mediator.NotifyColleagues(MessageType.RemoveLastActionToken, scoreActionToRevert);
             scoreActionToRevert.Multiplier *= -1;
             SelectedPlayer.AddScoreAction(scoreActionToRevert);
-            if (_roundScoreActionHistory.Count == 3)
+            if (_scoreActionHistoryPerRound.Count == 3)
             {
                 Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, true);
             }
-            _roundScoreActionHistory.RemoveAt(lastScoreActionIndex);
+            _scoreActionHistoryPerRound.RemoveAt(lastScoreActionIndex);
+            OnPropertyChanged("AverageScore");
         }
 
         private void InitializeGameSetting(object gameSetting)
@@ -93,25 +105,24 @@ namespace SimpleDartboard.PAL.ViewModels
             _playerOne.CurrentScore = dartGameSetting.StartingScore;
             _playerTwo.Name = dartGameSetting.PlayerTwoName;
             _playerTwo.CurrentScore = dartGameSetting.StartingScore;
-            _roundScoreActionHistory.Clear();
-            Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, true);
+            ClearActionTokens();
         }
 
         private void ReduceScoreForSelectedPlayer(object scoreActionObject)
         {
             if (!(scoreActionObject is ScoreAction scoreAction)) return;
             SelectedPlayer.AddScoreAction(scoreAction);
-            _roundScoreActionHistory.Add(scoreAction);
-            if (_roundScoreActionHistory.Count == 3)
+            _scoreActionHistoryPerRound.Add(scoreAction);
+            if (_scoreActionHistoryPerRound.Count == 3)
             {
                 Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, false);
             }
             if (SelectedPlayer.CurrentScore == 1 ||
                 SelectedPlayer.CurrentScore == 0 && scoreAction.Multiplier != 2)
             {
-                scoreAction.Multiplier *= -1;
-                SelectedPlayer.AddScoreAction(scoreAction);
+                UndoLastScoreAction();
             }
+            OnPropertyChanged("AverageScore");
         }
 
         private void SwitchSelectedPlayer()
@@ -119,7 +130,15 @@ namespace SimpleDartboard.PAL.ViewModels
             var currentSelectedPlayer = SelectedPlayer;
             SelectedPlayer = OpponentPlayer;
             OpponentPlayer = currentSelectedPlayer;
-            _roundScoreActionHistory.Clear();
+            ClearActionTokens();
+        }
+
+        private void ClearActionTokens()
+        {
+            _scoreActionHistoryPerRound.ForEach(x => Mediator.NotifyColleagues(MessageType.RemoveLastActionToken, x));
+            _scoreActionHistoryPerRound.Clear();
+            Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, true);
+            OnPropertyChanged("AverageScore");
         }
 
         private void ResetGame()
