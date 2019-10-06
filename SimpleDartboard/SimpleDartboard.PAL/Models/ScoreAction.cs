@@ -1,32 +1,13 @@
-using System;
-using SimpleDartboard.PAL.Core;
-
 namespace SimpleDartboard.PAL.Models
 {
-    public class ScoreAction : BaseViewModel
+    public class ScoreAction
     {
-        private int _actionIndex;
+        public int Score;
+        public int Multiplier;
 
-        public string ActionIndex
+        public int TotalScoreAction
         {
-            get { return _actionIndex.ToString() + "."; }
-            set
-            {
-                _actionIndex = Convert.ToInt32(value);
-                OnPropertyChanged("ActionIndex");
-            }
-        }
-
-        private int _score;
-
-        public int Score
-        {
-            get { return _score; }
-            set
-            {
-                _score = value;
-                OnPropertyChanged("Score");
-            }
+            get { return Score * Multiplier; }
         }
     }
 }

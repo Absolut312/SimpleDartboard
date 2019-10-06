@@ -1,6 +1,7 @@
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using SimpleDartboard.PAL.Core;
+using SimpleDartboard.PAL.Models;
 
 namespace SimpleDartboard.PAL.ViewModels
 {
@@ -27,7 +28,9 @@ namespace SimpleDartboard.PAL.ViewModels
 
         private void ReduceCurrentScoreForSelectedPlayer()
         {
-            Mediator.NotifyColleagues(MessageType.ReduceScoreForSelectedPlayer, _selectedScoreAction.Score*_selectedScoreAction.ScoreMultiplier);
+            Mediator.NotifyColleagues(MessageType.ReduceScoreForSelectedPlayer,
+                new ScoreAction
+                    {Multiplier = _selectedScoreAction.ScoreMultiplier, Score = _selectedScoreAction.Score});
         }
     }
 }

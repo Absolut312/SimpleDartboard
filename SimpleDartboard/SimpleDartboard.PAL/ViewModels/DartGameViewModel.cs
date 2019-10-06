@@ -59,8 +59,7 @@ namespace SimpleDartboard.PAL.ViewModels
             DartBoardScoreControl = dartBoardScoreControlViewModel;
             ResetGameCommand = new RelayCommand(ResetGame);
             SwitchPlayerCommand = new RelayCommand(SwitchSelectedPlayer);
-            UndoLastScoreActionCommand = new RelayCommand(UndoLastScoreActionCommant,
-                () => { return SelectedPlayer.HasScoreActions(); });
+            UndoLastScoreActionCommand = new RelayCommand(UndoLastScoreActionCommant);
             SelectedPlayer = _playerOne;
             OpponentPlayer = _playerTwo;
             Mediator.Register(MessageType.ReduceScoreForSelectedPlayer, ReduceScoreForSelectedPlayer);
@@ -69,7 +68,7 @@ namespace SimpleDartboard.PAL.ViewModels
 
         private void UndoLastScoreActionCommant()
         {
-            SelectedPlayer.UndoLastScoreAction();
+            //Todo: Reimplement
         }
 
         private void InitializeGameSetting(object gameSetting)
@@ -79,15 +78,22 @@ namespace SimpleDartboard.PAL.ViewModels
             _dartGameSetting = dartGameSetting;
             _playerOne.Name = dartGameSetting.PlayerOneName;
             _playerOne.CurrentScore = dartGameSetting.StartingScore;
-            _playerOne.ClearScoreActions();
             _playerTwo.Name = dartGameSetting.PlayerTwoName;
             _playerTwo.CurrentScore = dartGameSetting.StartingScore;
-            _playerTwo.ClearScoreActions();
         }
 
-        private void ReduceScoreForSelectedPlayer(object scoreAction)
+        private void ReduceScoreForSelectedPlayer(object scoreActionObject)
         {
-            SelectedPlayer.AddScoreAction(scoreAction is int ? (int) scoreAction : 0);
+            if (!(scoreActionObject is ScoreAction scoreAction)) return;
+            SelectedPlayer.AddScoreAction(scoreAction);
+            if (SelectedPlayer.CurrentScore == 1 || 
+                SelectedPlayer.CurrentScore == 0 && scoreAction.Multiplier != 2)
+            {
+                scoreAction.Multiplier *= -1;
+                SelectedPlayer.AddScoreAction(scoreAction);
+            }
+            //TODO: Revert all Round ScoreActions
+            
         }
 
         private void SwitchSelectedPlayer()
