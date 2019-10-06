@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SimpleDartboard.Views"
              xmlns:viewmodels="clr-namespace:SimpleDartboard.PAL.ViewModels;assembly=SimpleDartboard.PAL"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -18,34 +19,33 @@
     </UserControl.Resources>
     <Grid Margin="5,5,5,5">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="6*" />
-            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="5*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
-            <RowDefinition Height="4*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="4*" />
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="3*" />
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Grid.ColumnSpan="2">
-            <StackPanel Orientation="Horizontal">
-                <Button Content="Neustart" Command="{Binding ResetGameCommand}" />
-                <Button Content="Letzte Aktion entfernen" Command="{Binding UndoLastScoreActionCommand}" />
-                <Button Content="Spieler wechseln" Command="{Binding SwitchPlayerCommand}" />
-            </StackPanel>
+            <materialDesign:Card Padding="16" Margin="8">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Neustart" Command="{Binding ResetGameCommand}" />
+                    <Button Content="Letzte Aktion entfernen" Command="{Binding UndoLastScoreActionCommand}" />
+                    <Button Content="Spieler wechseln" Command="{Binding SwitchPlayerCommand}" />
+                </StackPanel>
+            </materialDesign:Card>
         </DockPanel>
         <DockPanel Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0">
-            <Border BorderBrush="DarkSlateGray" BorderThickness="0,0,0,5">
-            <ContentControl Content="{Binding DartBoardScoreControl}" />
-            </Border>
+            <materialDesign:Card Padding="16" Margin="8">
+                <ContentControl Content="{Binding DartBoardScoreControl}" />
+            </materialDesign:Card>
         </DockPanel>
-        <DockPanel Grid.Row="2" Grid.RowSpan="2" Grid.Column="0">
-            <Border BorderBrush="DarkSlateGray" BorderThickness="0,0,5,0">
-                <ContentControl Content="{Binding SelectedPlayer}" />
-            </Border>
+        <DockPanel Grid.Row="2" Grid.Column="0">
+            <ContentControl Content="{Binding SelectedPlayer}" />
         </DockPanel>
-        <DockPanel Grid.Row="2" Grid.RowSpan="2" Grid.Column="1">
-                <ContentControl Content="{Binding OpponentPlayer}" />
+        <DockPanel Grid.Row="2" Grid.Column="1">
+            <ContentControl Content="{Binding OpponentPlayer}" />
         </DockPanel>
     </Grid>
 </UserControl>

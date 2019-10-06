@@ -7,12 +7,10 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Border BorderBrush="DarkSlateGray" BorderThickness="0,0,2,0">
-            <DockPanel>
-                <StackPanel>
-                    <Button Content="Neues Spiel" Command="{Binding StartNewGameCommand}" />
-                </StackPanel>
-            </DockPanel>
-        </Border>
+        <DockPanel>
+            <StackPanel>
+                <Button Content="Neues Spiel" Command="{Binding StartNewGameCommand}" />
+            </StackPanel>
+        </DockPanel>
     </Grid>
 </UserControl>
