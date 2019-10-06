@@ -17,7 +17,8 @@ namespace SimpleDartboard.PAL.ViewModels
         private void AddScoreInputAction(int scoreAction)
         {
             var inputAction = (IDartBoardScoreInputViewModel) new DartBoardScoreInputViewModel();
-            inputAction.SelectedScoreAction = scoreAction;
+            inputAction.SelectedScoreAction = new ScoreActionViewModel();
+            inputAction.SelectedScoreAction.Score = scoreAction;
             ScoreInputActions.Add(inputAction);
         }
 

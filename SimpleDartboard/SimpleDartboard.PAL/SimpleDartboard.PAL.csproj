@@ -79,9 +79,11 @@
     <Compile Include="ViewModels\IMainViewModel.cs" />
     <Compile Include="ViewModels\INavigationBarViewModel.cs" />
     <Compile Include="ViewModels\IPlayerScoreBoardViewModel.cs" />
+    <Compile Include="ViewModels\IScoreActionViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NavigationBarViewModel.cs" />
     <Compile Include="ViewModels\PlayerScoreBoardViewModel.cs" />
+    <Compile Include="ViewModels\ScoreActionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
