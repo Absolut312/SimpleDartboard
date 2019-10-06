@@ -4,7 +4,6 @@ namespace SimpleDartboard.PAL.ViewModels
 {
     public interface IActionTokenViewModel
     {
-        Color TokenColor { get; set; }
-        int ActionIndex { get; set; }
+        Brush TokenColor { get; set; }
     }
 }
