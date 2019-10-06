@@ -1,4 +1,5 @@
 using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace SimpleDartboard.PAL.ViewModels
@@ -7,5 +8,7 @@ namespace SimpleDartboard.PAL.ViewModels
     {
         IScoreActionViewModel SelectedScoreAction { get; set; }
         ICommand AddScoreActionForSelectedPlayerCommand { get; set; }
+        ObservableCollection<IActionTokenViewModel> ActionTokens { get; set; }
+        void RemoveLastActionToken();
     }
 }

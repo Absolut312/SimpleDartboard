@@ -64,6 +64,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Theme\CustomizedMaterialDesign.cs" />
+    <Compile Include="Views\ActionTokenView.xaml.cs">
+      <DependentUpon>ActionTokenView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DartBoardScoreControlView.xaml.cs">
       <DependentUpon>DartBoardScoreControlView.xaml</DependentUpon>
     </Compile>
@@ -98,6 +101,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ActionTokenView.xaml" />
     <Page Include="Views\DartBoardScoreControlView.xaml" />
     <Page Include="Views\DartBoardScoreInputView.xaml" />
     <Page Include="Views\DartGameSettingView.xaml" />

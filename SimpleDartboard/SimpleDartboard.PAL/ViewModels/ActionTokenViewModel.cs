@@ -5,26 +5,15 @@ namespace SimpleDartboard.PAL.ViewModels
 {
     public class ActionTokenViewModel : BaseViewModel, IActionTokenViewModel
     {
-        private Color _tokenColor;
-        private int _actionIndex;
+        private Brush _tokenColor = Brushes.Black;
 
-        public Color TokenColor
+        public Brush TokenColor
         {
             get => _tokenColor;
             set
             {
                 _tokenColor = value;
                 OnPropertyChanged("TokenColor");
-            }
-        }
-
-        public int ActionIndex
-        {
-            get => _actionIndex;
-            set
-            {
-                _actionIndex = value;
-                OnPropertyChanged("ActionIndex");
             }
         }
     }

@@ -4,6 +4,8 @@ namespace SimpleDartboard.PAL.Core
     {
         ChangeMainViewContent,
         ReduceScoreForSelectedPlayer,
-        StartGame
+        StartGame,
+        RemoveLastActionToken,
+        SetIsDartboardScoreInputActive,
     }
 }
