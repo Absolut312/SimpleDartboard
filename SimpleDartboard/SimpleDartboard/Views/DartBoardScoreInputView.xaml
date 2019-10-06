@@ -8,7 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <DockPanel>
-                <Button Content="{Binding SelectedScoreAction}" VerticalAlignment="Center"
+                <Button Content="{Binding SelectedScoreAction.ScoreActionString}" VerticalAlignment="Center"
                         Command="{Binding AddScoreActionForSelectedPlayerCommand}" Width="70" Height="70"/>
         </DockPanel>
     </Grid>

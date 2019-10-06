@@ -3,9 +3,9 @@ using System.Windows.Input;
 
 namespace SimpleDartboard.PAL.ViewModels
 {
-    public interface IDartBoardScoreInputViewModel: ICloneable
+    public interface IDartBoardScoreInputViewModel
     {
-        int SelectedScoreAction { get; set; }
+        IScoreActionViewModel SelectedScoreAction { get; set; }
         ICommand AddScoreActionForSelectedPlayerCommand { get; set; }
     }
 }
