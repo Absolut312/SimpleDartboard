@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using SimpleDartboard.PAL.Models;
 
 namespace SimpleDartboard.PAL.ViewModels
 {
@@ -6,9 +7,6 @@ namespace SimpleDartboard.PAL.ViewModels
     {
         string Name { get; set; }
         int CurrentScore { get; set; }
-        void AddScoreAction(int score);
-        void ClearScoreActions();
-        void UndoLastScoreAction();
-        bool HasScoreActions();
+        void AddScoreAction(ScoreAction scoreAction);
     }
 }
