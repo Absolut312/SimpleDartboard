@@ -46,13 +46,14 @@ namespace SimpleDartboard.PAL.ViewModels
                 OnPropertyChanged("DartBoardScoreControl");
             }
         }
-        
+
         public string AverageScore
         {
             get
             {
                 if (_scoreActionHistoryPerRound.Count == 0) return "--";
-                var summedScoreActions = _scoreActionHistoryPerRound.Sum(x => x.Score * x.Multiplier) / _scoreActionHistoryPerRound.Count;
+                var summedScoreActions = _scoreActionHistoryPerRound.Sum(x => x.Score * x.Multiplier) /
+                                         _scoreActionHistoryPerRound.Count;
                 return "Durchschnitt pro Runde: " + summedScoreActions;
             }
         }
@@ -92,6 +93,7 @@ namespace SimpleDartboard.PAL.ViewModels
             {
                 Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, true);
             }
+
             _scoreActionHistoryPerRound.RemoveAt(lastScoreActionIndex);
             OnPropertyChanged("AverageScore");
         }
@@ -117,11 +119,30 @@ namespace SimpleDartboard.PAL.ViewModels
             {
                 Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, false);
             }
-            if (SelectedPlayer.CurrentScore == 1 ||
-                SelectedPlayer.CurrentScore == 0 && scoreAction.Multiplier != 2)
+
+            if (SelectedPlayer.CurrentScore == 0 && scoreAction.Multiplier != 2)
             {
-                UndoLastScoreAction();
+                var lastScoreActionIndex = _scoreActionHistoryPerRound.Count - 1;
+                var scoreActionToRevert = _scoreActionHistoryPerRound[lastScoreActionIndex];
+                scoreActionToRevert.Multiplier *= -1;
+                SelectedPlayer.AddScoreAction(scoreActionToRevert);
             }
+            else if (SelectedPlayer.CurrentScore == 1 || SelectedPlayer.CurrentScore < 0)
+            {
+                while (_scoreActionHistoryPerRound.Count > 0)
+                {
+                    UndoLastScoreAction();
+                }
+
+                SwitchSelectedPlayer();
+                return;
+            }
+
+            if (_scoreActionHistoryPerRound.Count == 3)
+            {
+                SwitchSelectedPlayer();
+            }
+
             OnPropertyChanged("AverageScore");
         }
 
