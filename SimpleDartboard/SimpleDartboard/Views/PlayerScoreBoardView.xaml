@@ -8,7 +8,7 @@
                 <materialDesign:Card Padding="16" Margin="8">
                     <StackPanel>
                         <Label Content="Spieler:" FontSize="45" FontWeight="Bold" />
-                        <Label Content="{Binding Name}" FontSize="40" />
+                        <Label Content="{Binding Name}" FontSize="60" />
                         <Label Content="{Binding CurrentScore}" FontSize="100" FontWeight="Bold" />
                         <Label Content="{Binding AverageScore}" FontSize="20" />
                     </StackPanel>

@@ -8,16 +8,25 @@ namespace SimpleDartboard.PAL.ViewModels
     {
         private IDartGameSettingViewModel _dartGameSettingViewModel;
         private IDartGameViewModel _dartGameViewModel;
-        public NavigationBarViewModel(IDartGameViewModel dartGameViewModel, 
-            IDartGameSettingViewModel dartGameSettingViewModel)
+        private IDartGameWinnerViewModel _dartGameWinnerViewModel;
+
+        public NavigationBarViewModel(IDartGameViewModel dartGameViewModel,
+            IDartGameSettingViewModel dartGameSettingViewModel,
+            IDartGameWinnerViewModel dartGameWinnerViewModel)
         {
             _dartGameViewModel = dartGameViewModel;
             _dartGameSettingViewModel = dartGameSettingViewModel;
+            _dartGameWinnerViewModel = dartGameWinnerViewModel;
             ChangeToDartGameCommand = new RelayCommand(ChangeToDartGame);
             StartNewGameCommand = new RelayCommand(StartNewGame);
             Mediator.Register(MessageType.StartGame, StartGame);
             Mediator.Register(MessageType.InitializeNewGame, InitializeNewGame);
-            
+            Mediator.Register(MessageType.ShowWinner, NavigateToShowWinnerView);
+        }
+
+        private void NavigateToShowWinnerView(object obj)
+        {
+            Mediator.NotifyColleagues(MessageType.ChangeMainViewContent, _dartGameWinnerViewModel);
         }
 
         private void InitializeNewGame(object obj)

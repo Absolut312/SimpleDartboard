@@ -180,6 +180,10 @@ namespace SimpleDartboard.PAL.ViewModels
             {
                 UndoRoundScoreActions();
             }
+            else if (SelectedPlayer.CurrentScore == 0)
+            {
+                Mediator.NotifyColleagues(MessageType.ShowWinner, SelectedPlayer);
+            }
 
             RaiseScoreActionChanges();
         }

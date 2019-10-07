@@ -11,6 +11,9 @@
         <DataTemplate x:Name="dartGameSettingViewTemplate" DataType="{x:Type viewmodels:DartGameSettingViewModel}">
             <views:DartGameSettingView DataContext="{Binding}" />
         </DataTemplate>
+        <DataTemplate x:Name="dartGameWinnerViewTemplate" DataType="{x:Type viewmodels:DartGameWinnerViewModel}">
+            <views:DartGameWinnerView DataContext="{Binding}" />
+        </DataTemplate>
     </UserControl.Resources>
     <Grid>
         <DockPanel>
