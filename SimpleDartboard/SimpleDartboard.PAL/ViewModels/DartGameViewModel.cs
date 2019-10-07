@@ -147,7 +147,28 @@ namespace SimpleDartboard.PAL.ViewModels
 
             Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, true);
             _scoreActionHistoryPerRound.RemoveAt(lastScoreActionIndex);
+            if (AreAllScoreActionsRevertedBecauseOfUnderScore())
+            {
+                ReAddRevertedScoreActions();
+            }
+
             RaiseScoreActionChanges();
+        }
+
+        private void ReAddRevertedScoreActions()
+        {
+            _scoreActionHistoryPerRound.ForEach(x =>
+            {
+                SelectedPlayer.AddScoreAction(new ScoreAction
+                    {Multiplier = x.Multiplier, Score = x.Score});
+                x.IsReverted = false;
+            });
+        }
+
+        private bool AreAllScoreActionsRevertedBecauseOfUnderScore()
+        {
+            return !_scoreActionHistoryPerRound.Exists(x => !x.IsReverted) &&
+                   _scoreActionHistoryPerRound.Sum(x => x.Multiplier * x.Score) < SelectedPlayer.CurrentScore + 1;
         }
 
         private void InitializeGameSetting(object gameSetting)
