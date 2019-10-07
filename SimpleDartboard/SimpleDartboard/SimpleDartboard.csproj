@@ -73,6 +73,9 @@
     <Compile Include="Views\DartBoardScoreInputView.xaml.cs">
       <DependentUpon>DartBoardScoreInputView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DartGameControlView.xaml.cs">
+      <DependentUpon>DartGameControlView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DartGameSettingView.xaml.cs">
       <DependentUpon>DartGameSettingView.xaml</DependentUpon>
     </Compile>
@@ -104,6 +107,7 @@
     <Page Include="Views\ActionTokenView.xaml" />
     <Page Include="Views\DartBoardScoreControlView.xaml" />
     <Page Include="Views\DartBoardScoreInputView.xaml" />
+    <Page Include="Views\DartGameControlView.xaml" />
     <Page Include="Views\DartGameSettingView.xaml" />
     <Page Include="Views\DartGameView.xaml" />
     <Page Include="Views\MainView.xaml" />

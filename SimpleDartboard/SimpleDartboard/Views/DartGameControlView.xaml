@@ -1,0 +1,23 @@
+<UserControl x:Class="SimpleDartboard.Views.DartGameControlView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:SimpleDartboard.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <DockPanel>
+            <materialDesign:Card Padding="16" Margin="8">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Neustart" Command="{Binding ResetGameCommand}" />
+                    <Button Content="Letzte Aktion entfernen" Margin="4,0,0,0"
+                            Command="{Binding UndoLastScoreActionCommand}" />
+                    <Button Content="Checkout" HorizontalAlignment="Right"
+                            Command="{Binding SwitchPlayerCommand}" />
+                </StackPanel>
+            </materialDesign:Card>
+        </DockPanel>
+    </Grid>
+</UserControl>

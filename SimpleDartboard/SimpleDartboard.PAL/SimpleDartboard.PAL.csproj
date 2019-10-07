@@ -73,12 +73,14 @@
     <Compile Include="ViewModels\DartBoardScoreInputViewModel.cs" />
     <Compile Include="ViewModels\DartGameSettingViewModel.cs" />
     <Compile Include="ViewModels\DartGameViewModel.cs" />
+    <Compile Include="ViewModels\DartGameControlViewModel.cs" />
     <Compile Include="ViewModels\IActionTokenViewModel.cs" />
     <Compile Include="ViewModels\IContentViewModel.cs" />
     <Compile Include="ViewModels\IDartBoardScoreControlViewModel.cs" />
     <Compile Include="ViewModels\IDartBoardScoreInputViewModel.cs" />
     <Compile Include="ViewModels\IDartGameSettingViewModel.cs" />
     <Compile Include="ViewModels\IDartGameViewModel.cs" />
+    <Compile Include="ViewModels\IDartGameControlViewModel.cs" />
     <Compile Include="ViewModels\IMainViewModel.cs" />
     <Compile Include="ViewModels\INavigationBarViewModel.cs" />
     <Compile Include="ViewModels\IPlayerScoreBoardViewModel.cs" />

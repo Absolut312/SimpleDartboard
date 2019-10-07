@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
-using GalaSoft.MvvmLight.CommandWpf;
 using SimpleDartboard.PAL.Core;
 using SimpleDartboard.PAL.Models;
 
@@ -47,6 +45,16 @@ namespace SimpleDartboard.PAL.ViewModels
             }
         }
 
+        public IDartGameControlViewModel DartGameControlViewModel
+        {
+            get => _dartGameControlViewModel;
+            set
+            {
+                _dartGameControlViewModel = value; 
+                OnPropertyChanged("DartGameControlViewModel");
+            }
+        }
+
         public string AverageScore
         {
             get
@@ -54,7 +62,7 @@ namespace SimpleDartboard.PAL.ViewModels
                 if (_scoreActionHistoryPerRound.Count == 0) return "--";
                 var summedScoreActions = _scoreActionHistoryPerRound.Sum(x => x.Score * x.Multiplier) /
                                          _scoreActionHistoryPerRound.Count;
-                return "Durchschnitt pro Runde: " + summedScoreActions;
+                return "Durchschnitt in dieser Runde: " + summedScoreActions;
             }
         }
 
@@ -99,31 +107,34 @@ namespace SimpleDartboard.PAL.ViewModels
             return scoreActionCommaSeperatedText;
         }
 
-        public ICommand SwitchPlayerCommand { get; set; }
-        public ICommand ResetGameCommand { get; set; }
-        public ICommand UndoLastScoreActionCommand { get; set; }
         private List<ScoreAction> _scoreActionHistoryPerRound;
+        private IDartGameControlViewModel _dartGameControlViewModel;
 
         public DartGameViewModel(IPlayerScoreBoardViewModel playerOne,
             IPlayerScoreBoardViewModel playerTwo,
-            IDartBoardScoreControlViewModel dartBoardScoreControlViewModel)
+            IDartBoardScoreControlViewModel dartBoardScoreControlViewModel,
+            IDartGameControlViewModel dartGameControlViewModel)
         {
             _dartGameSetting = new DartGameSetting();
             _scoreActionHistoryPerRound = new List<ScoreAction>();
             _playerOne = playerOne;
             _playerTwo = playerTwo;
             DartBoardScoreControl = dartBoardScoreControlViewModel;
-            ResetGameCommand = new RelayCommand(ResetGame);
-            SwitchPlayerCommand = new RelayCommand(SwitchSelectedPlayer);
-            UndoLastScoreActionCommand =
-                new RelayCommand(UndoLastScoreAction, () => _scoreActionHistoryPerRound.Count > 0);
+            DartGameControlViewModel = dartGameControlViewModel;
             SelectedPlayer = _playerOne;
             OpponentPlayer = _playerTwo;
-            Mediator.Register(MessageType.ReduceScoreForSelectedPlayer, ReduceScoreForSelectedPlayer);
-            Mediator.Register(MessageType.StartGame, InitializeGameSetting);
+            RegisterMediatorMessages();
         }
 
-        private void UndoLastScoreAction()
+        private void RegisterMediatorMessages()
+        {
+            Mediator.Register(MessageType.SwichtSelectedPlayer, SwitchSelectedPlayer);
+            Mediator.Register(MessageType.ReduceScoreForSelectedPlayer, ReduceScoreForSelectedPlayer);
+            Mediator.Register(MessageType.StartGame, InitializeGameSetting);
+            Mediator.Register(MessageType.UndoLastScoreAction, UndoLastScoreAction);
+        }
+
+        private void UndoLastScoreAction(object obj)
         {
             var lastScoreActionIndex = _scoreActionHistoryPerRound.Count - 1;
             var scoreActionToRevert = _scoreActionHistoryPerRound[lastScoreActionIndex];
@@ -161,29 +172,50 @@ namespace SimpleDartboard.PAL.ViewModels
                 Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, false);
             }
 
-            if (SelectedPlayer.CurrentScore == 0 && scoreAction.Multiplier != 2)
+            if (IsInvalidScoreActionToWin(scoreAction))
             {
-                var lastScoreActionIndex = _scoreActionHistoryPerRound.Count - 1;
-                var scoreActionToRevert = _scoreActionHistoryPerRound[lastScoreActionIndex];
-                scoreActionToRevert.IsReverted = true;
-                SelectedPlayer.AddScoreAction(new ScoreAction
-                    {Multiplier = scoreActionToRevert.Multiplier * (-1), Score = scoreActionToRevert.Score});
+                UndoInvalidScoreAction();
             }
-            else if (SelectedPlayer.CurrentScore == 1 || SelectedPlayer.CurrentScore < 0)
+            else if (IsInvalidScoreAction())
             {
-                while (_scoreActionHistoryPerRound.Count > 0)
-                {
-                    UndoLastScoreAction();
-                }
-
-                Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, false);
+                UndoRoundScoreActions();
                 return;
             }
 
             RaiseScoreActionChanges();
         }
 
-        private void SwitchSelectedPlayer()
+        private void UndoInvalidScoreAction()
+        {
+            var lastScoreActionIndex = _scoreActionHistoryPerRound.Count - 1;
+            var scoreActionToRevert = _scoreActionHistoryPerRound[lastScoreActionIndex];
+            scoreActionToRevert.IsReverted = true;
+            SelectedPlayer.AddScoreAction(new ScoreAction
+                {Multiplier = scoreActionToRevert.Multiplier * (-1), Score = scoreActionToRevert.Score});
+        }
+
+        private void UndoRoundScoreActions()
+        {
+            while (_scoreActionHistoryPerRound.Count > 0)
+            {
+                UndoLastScoreAction(null);
+            }
+
+            Mediator.NotifyColleagues(MessageType.DisableUndoLastScoreAction, true);
+            Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, false);
+        }
+
+        private bool IsInvalidScoreAction()
+        {
+            return SelectedPlayer.CurrentScore == 1 || SelectedPlayer.CurrentScore < 0;
+        }
+
+        private bool IsInvalidScoreActionToWin(ScoreAction scoreAction)
+        {
+            return SelectedPlayer.CurrentScore == 0 && scoreAction.Multiplier != 2;
+        }
+
+        private void SwitchSelectedPlayer(object obj)
         {
             var currentSelectedPlayer = SelectedPlayer;
             SelectedPlayer = OpponentPlayer;
@@ -201,13 +233,9 @@ namespace SimpleDartboard.PAL.ViewModels
 
         private void RaiseScoreActionChanges()
         {
+            Mediator.NotifyColleagues(MessageType.DisableUndoLastScoreAction, _scoreActionHistoryPerRound.Count == 0);
             OnPropertyChanged("AverageScore");
             OnPropertyChanged("TotalScore");
-        }
-
-        private void ResetGame()
-        {
-            Mediator.NotifyColleagues(MessageType.StartGame, _dartGameSetting);
         }
     }
 }

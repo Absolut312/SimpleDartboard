@@ -7,9 +7,8 @@ namespace SimpleDartboard.PAL.ViewModels
         IPlayerScoreBoardViewModel SelectedPlayer { get; set; }
         IPlayerScoreBoardViewModel OpponentPlayer { get; set; }
         IDartBoardScoreControlViewModel DartBoardScoreControl { get; set; }
-        ICommand SwitchPlayerCommand { get; set; }
-        ICommand ResetGameCommand { get; set; }
-        ICommand UndoLastScoreActionCommand { get; set; }
+        IDartGameControlViewModel DartGameControlViewModel { get; set; }
         string AverageScore { get; }
+        string TotalScore { get; }
     }
 }
