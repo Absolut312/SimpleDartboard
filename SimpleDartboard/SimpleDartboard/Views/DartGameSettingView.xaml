@@ -4,27 +4,46 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SimpleDartboard.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <DockPanel>
             <StackPanel Orientation="Vertical">
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Player 1:" VerticalAlignment="Center" />
-                    <TextBox Margin="10,0,0,0" VerticalAlignment="Center" Text="{Binding PlayerOneName}"
-                             MinWidth="50" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Player 2:" VerticalAlignment="Center" />
-                    <TextBox Margin="10,0,0,0" VerticalAlignment="Center" Text="{Binding PlayerTwoName}"
-                             MinWidth="50" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Punkte:" VerticalAlignment="Center" />
-                    <TextBox Margin="10,0,0,0" VerticalAlignment="Center" Text="{Binding StartingScore}"
-                             MinWidth="50" />
-                </StackPanel>
-                <Button Content="Spiel starten" Command="{Binding StartGameCommand}"></Button>
+                <materialDesign:Card Padding="32" Margin="16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Player 1:" VerticalAlignment="Center" 
+                                   FontSize="40" />
+                            <TextBox Margin="10,0,0,0" 
+                                     VerticalAlignment="Center" 
+                                     Text="{Binding PlayerOneName}"
+                                     MinWidth="50" 
+                                     FontSize="40"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Player 2:" 
+                                   VerticalAlignment="Center" 
+                                   FontSize="40"/>
+                            <TextBox Margin="10,0,0,0" 
+                                     VerticalAlignment="Center" 
+                                     Text="{Binding PlayerTwoName}"
+                                     MinWidth="50" 
+                                     FontSize="40"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Punkte:" 
+                                   VerticalAlignment="Center" 
+                                   FontSize="40"/>
+                            <TextBox Margin="10,0,0,0" 
+                                     VerticalAlignment="Center" 
+                                     Text="{Binding StartingScore}"
+                                     MinWidth="50" 
+                                     FontSize="40"/>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:Card>
+                <Button Content="Spiel starten" Command="{Binding StartGameCommand}" />
             </StackPanel>
         </DockPanel>
     </Grid>

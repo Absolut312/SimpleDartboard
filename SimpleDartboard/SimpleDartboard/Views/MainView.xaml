@@ -5,9 +5,6 @@
              xmlns:viewmodels="clr-namespace:SimpleDartboard.PAL.ViewModels;assembly=SimpleDartboard.PAL"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <UserControl.Resources>
-        <DataTemplate x:Name="navigationBarViewTemplate" DataType="{x:Type viewmodels:NavigationBarViewModel}">
-            <views:NavigationBarView DataContext="{Binding}" />
-        </DataTemplate>
         <DataTemplate x:Name="dartGameViewTemplate" DataType="{x:Type viewmodels:DartGameViewModel}">
             <views:DartGameView DataContext="{Binding}" />
         </DataTemplate>
@@ -16,16 +13,7 @@
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="8*" />
-        </Grid.ColumnDefinitions>
-        <DockPanel Grid.Column="0">
-            <materialDesign:Card Padding="32" Margin="16">
-                <ContentControl Content="{Binding NavigationBarViewModel}" />
-            </materialDesign:Card>
-        </DockPanel>
-        <DockPanel Grid.Column="1">
+        <DockPanel>
             <materialDesign:Card Padding="32" Margin="16">
                 <ContentControl Content="{Binding ContentViewModel}" />
             </materialDesign:Card>

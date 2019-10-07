@@ -21,6 +21,7 @@ namespace SimpleDartboard.PAL.ViewModels
         {
             NavigationBarViewModel = navigationBarViewModel;
             Mediator.Register(MessageType.ChangeMainViewContent, ChangeContentViewModel);
+            Mediator.NotifyColleagues(MessageType.InitializeNewGame, null);
         }
 
         private void ChangeContentViewModel(object obj)

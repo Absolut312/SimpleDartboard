@@ -50,7 +50,7 @@ namespace SimpleDartboard.PAL.ViewModels
             get => _dartGameControlViewModel;
             set
             {
-                _dartGameControlViewModel = value; 
+                _dartGameControlViewModel = value;
                 OnPropertyChanged("DartGameControlViewModel");
             }
         }

@@ -10,6 +10,8 @@ namespace SimpleDartboard.PAL.ViewModels
         public ICommand SwitchPlayerCommand { get; set; }
         public ICommand ResetGameCommand { get; set; }
         public ICommand UndoLastScoreActionCommand { get; set; }
+
+
         private bool _isUndoLastActionDisabled = true;
         private DartGameSetting _dartGameSetting;
 
@@ -46,7 +48,7 @@ namespace SimpleDartboard.PAL.ViewModels
 
         private void ResetGame()
         {
-            Mediator.NotifyColleagues(MessageType.StartGame, _dartGameSetting);
+            Mediator.NotifyColleagues(MessageType.InitializeNewGame, null);
         }
     }
 }
