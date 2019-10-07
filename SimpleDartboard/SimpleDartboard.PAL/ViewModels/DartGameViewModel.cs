@@ -179,7 +179,6 @@ namespace SimpleDartboard.PAL.ViewModels
             else if (IsInvalidScoreAction())
             {
                 UndoRoundScoreActions();
-                return;
             }
 
             RaiseScoreActionChanges();
@@ -196,10 +195,12 @@ namespace SimpleDartboard.PAL.ViewModels
 
         private void UndoRoundScoreActions()
         {
-            while (_scoreActionHistoryPerRound.Count > 0)
+            _scoreActionHistoryPerRound.ForEach(x =>
             {
-                UndoLastScoreAction(null);
-            }
+                x.IsReverted = true;
+                SelectedPlayer.AddScoreAction(new ScoreAction
+                    {Multiplier = x.Multiplier * (-1), Score = x.Score});
+            });
 
             Mediator.NotifyColleagues(MessageType.DisableUndoLastScoreAction, true);
             Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, false);
