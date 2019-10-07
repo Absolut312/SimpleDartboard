@@ -82,6 +82,9 @@
     <Compile Include="Views\DartGameView.xaml.cs">
       <DependentUpon>DartGameView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DartGameWinnerView.xaml.cs">
+      <DependentUpon>DartGameWinnerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -110,6 +113,7 @@
     <Page Include="Views\DartGameControlView.xaml" />
     <Page Include="Views\DartGameSettingView.xaml" />
     <Page Include="Views\DartGameView.xaml" />
+    <Page Include="Views\DartGameWinnerView.xaml" />
     <Page Include="Views\MainView.xaml" />
     <Page Include="Views\NavigationBarView.xaml" />
     <Page Include="Views\PlayerScoreBoardView.xaml" />

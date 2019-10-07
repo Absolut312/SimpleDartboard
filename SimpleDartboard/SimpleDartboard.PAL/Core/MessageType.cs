@@ -10,6 +10,7 @@ namespace SimpleDartboard.PAL.Core
         SwichtSelectedPlayer,
         DisableUndoLastScoreAction,
         UndoLastScoreAction,
-        InitializeNewGame
+        InitializeNewGame,
+        ShowWinner
     }
 }
