@@ -84,7 +84,7 @@ namespace SimpleDartboard.PAL.ViewModels
 
             scoreActionCommaSeperatedText = scoreActionCommaSeperatedText.TrimEnd();
             scoreActionCommaSeperatedText = scoreActionCommaSeperatedText.TrimEnd(',');
-            return "Runde: " + scoreActionCommaSeperatedText + " Gesamt: " + summedScoreActions;
+            return "Treffer: " + scoreActionCommaSeperatedText + " Gesamt: " + summedScoreActions;
         }
 
         private static string TransformScoreActionToText(ScoreAction scoreAction, string scoreActionCommaSeperatedText)

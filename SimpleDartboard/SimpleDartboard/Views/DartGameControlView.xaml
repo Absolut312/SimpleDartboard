@@ -16,14 +16,18 @@
     <Grid>
         <DockPanel>
             <materialDesign:Card Padding="16" Margin="8">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Left">
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="Neues Spiel" Command="{Binding ResetGameCommand}" />
+                        <Button Content="Neues Spiel"
+                                Command="{Binding ResetGameCommand}" />
                         <Button Content="Letzte Aktion entfernen"
-                                Command="{Binding UndoLastScoreActionCommand}" 
-                                Margin="4,0,0,0"/>
-                        <Button Content="Checkout" HorizontalAlignment="Right"
-                                Command="{Binding SwitchPlayerCommand}"/>
+                                Command="{Binding UndoLastScoreActionCommand}"
+                                Margin="4,0,0,0" />
+                        <Button Content="Checkout"
+                                HorizontalAlignment="Right"
+                                Command="{Binding SwitchPlayerCommand}"
+                                Margin="4,0,0,0" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <ContentPresenter Content="{Binding NavigationBarViewModel}" />
