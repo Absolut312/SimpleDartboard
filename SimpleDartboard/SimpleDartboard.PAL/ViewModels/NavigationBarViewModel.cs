@@ -16,7 +16,13 @@ namespace SimpleDartboard.PAL.ViewModels
             ChangeToDartGameCommand = new RelayCommand(ChangeToDartGame);
             StartNewGameCommand = new RelayCommand(StartNewGame);
             Mediator.Register(MessageType.StartGame, StartGame);
+            Mediator.Register(MessageType.InitializeNewGame, InitializeNewGame);
             
+        }
+
+        private void InitializeNewGame(object obj)
+        {
+            StartNewGame();
         }
 
         private void StartGame(object obj)

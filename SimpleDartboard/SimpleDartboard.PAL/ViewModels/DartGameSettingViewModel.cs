@@ -53,7 +53,7 @@ namespace SimpleDartboard.PAL.ViewModels
             StartGameCommand = new RelayCommand(StartGame, () =>
             {
                 return PlayerOneName != PlayerTwoName && PlayerOneName != "" && PlayerTwoName != "" &&
-                       StartingScore > 0;
+                       StartingScore > 1;
             });
             Mediator.Register(MessageType.ChangeMainViewContent, InitializeDartGameSetting);
         }

@@ -9,6 +9,7 @@ namespace SimpleDartboard.PAL.Core
         SetIsDartboardScoreInputActive,
         SwichtSelectedPlayer,
         DisableUndoLastScoreAction,
-        UndoLastScoreAction
+        UndoLastScoreAction,
+        InitializeNewGame
     }
 }
