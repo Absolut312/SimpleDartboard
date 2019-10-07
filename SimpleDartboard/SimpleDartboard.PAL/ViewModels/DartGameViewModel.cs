@@ -57,6 +57,47 @@ namespace SimpleDartboard.PAL.ViewModels
                 return "Durchschnitt pro Runde: " + summedScoreActions;
             }
         }
+        
+        public string TotalScore
+        {
+            get { return TransformScoreActionToToalScorePerRound(); }
+        }
+
+        private string TransformScoreActionToToalScorePerRound()
+        {
+            if (_scoreActionHistoryPerRound.Count == 0) return "--";
+            var summedScoreActions = _scoreActionHistoryPerRound.Sum(x => x.Score * x.Multiplier) /
+                                     _scoreActionHistoryPerRound.Count;
+            var scoreActionCommaSeperatedText = "";
+            foreach (var scoreAction in _scoreActionHistoryPerRound)
+            {
+                scoreActionCommaSeperatedText = TransformScoreActionToText(scoreAction, scoreActionCommaSeperatedText);
+            }
+
+            scoreActionCommaSeperatedText = scoreActionCommaSeperatedText.TrimEnd();
+            scoreActionCommaSeperatedText = scoreActionCommaSeperatedText.TrimEnd(',');
+            return "Runde: " + scoreActionCommaSeperatedText + " Gesamt: " + summedScoreActions;
+        }
+
+        private static string TransformScoreActionToText(ScoreAction scoreAction, string scoreActionCommaSeperatedText)
+        {
+            switch (scoreAction.Multiplier)
+            {
+                case 2:
+                {
+                    scoreActionCommaSeperatedText += "D";
+                    break;
+                }
+                case 3:
+                {
+                    scoreActionCommaSeperatedText += "T";
+                    break;
+                }
+            }
+
+            scoreActionCommaSeperatedText += scoreAction.Score + ", ";
+            return scoreActionCommaSeperatedText;
+        }
 
         public ICommand SwitchPlayerCommand { get; set; }
         public ICommand ResetGameCommand { get; set; }
@@ -95,7 +136,7 @@ namespace SimpleDartboard.PAL.ViewModels
             }
 
             _scoreActionHistoryPerRound.RemoveAt(lastScoreActionIndex);
-            OnPropertyChanged("AverageScore");
+            RaiseScoreActionChanges();
         }
 
         private void InitializeGameSetting(object gameSetting)
@@ -143,7 +184,7 @@ namespace SimpleDartboard.PAL.ViewModels
                 SwitchSelectedPlayer();
             }
 
-            OnPropertyChanged("AverageScore");
+            RaiseScoreActionChanges();
         }
 
         private void SwitchSelectedPlayer()
@@ -159,7 +200,13 @@ namespace SimpleDartboard.PAL.ViewModels
             _scoreActionHistoryPerRound.ForEach(x => Mediator.NotifyColleagues(MessageType.RemoveLastActionToken, x));
             _scoreActionHistoryPerRound.Clear();
             Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, true);
+            RaiseScoreActionChanges();
+        }
+
+        private void RaiseScoreActionChanges()
+        {
             OnPropertyChanged("AverageScore");
+            OnPropertyChanged("TotalScore");
         }
 
         private void ResetGame()

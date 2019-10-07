@@ -19,31 +19,37 @@
             <ColumnDefinition Width="5*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="5*" />
+            <RowDefinition Height="6*" />
             <RowDefinition Height="4*" />
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" Grid.ColumnSpan="2">
-            <materialDesign:Card Padding="16" Margin="8">
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="Neustart" Command="{Binding ResetGameCommand}" />
-                    <Button Content="Letzte Aktion entfernen" Command="{Binding UndoLastScoreActionCommand}" />
-                    <Button Content="Spieler wechseln" Command="{Binding SwitchPlayerCommand}" />
-                </StackPanel>
-            </materialDesign:Card>
+        <DockPanel Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
+            <StackPanel>
+                <materialDesign:Card Padding="16" Margin="8">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Neustart" Command="{Binding ResetGameCommand}" />
+                        <Button Content="Letzte Aktion entfernen" Command="{Binding UndoLastScoreActionCommand}" />
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <materialDesign:Card Padding="16" Margin="8">
+                    <StackPanel>
+                        <ContentControl Content="{Binding DartBoardScoreControl}" />
+                        <materialDesign:Card Padding="16" Margin="8">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="{Binding TotalScore}" HorizontalAlignment="Left" FontSize="20" />
+                                <Label Content="{Binding AverageScore}" HorizontalAlignment="Center" FontSize="20" />
+                                <Button Content="Checkout" HorizontalAlignment="Right"
+                                        Command="{Binding SwitchPlayerCommand}" />
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </StackPanel>
+                </materialDesign:Card>
+            </StackPanel>
         </DockPanel>
-        <DockPanel Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0">
-            <materialDesign:Card Padding="16" Margin="8">
-                <StackPanel>
-                    <ContentControl Content="{Binding DartBoardScoreControl}" />
-                    <Label Content="{Binding AverageScore}" FontSize="20" />
-                </StackPanel>
-            </materialDesign:Card>
-        </DockPanel>
-        <DockPanel Grid.Row="2" Grid.Column="0">
+        <DockPanel Grid.Row="1" Grid.Column="0">
             <ContentControl Content="{Binding SelectedPlayer}" />
         </DockPanel>
-        <DockPanel Grid.Row="2" Grid.Column="1">
+        <DockPanel Grid.Row="1" Grid.Column="1">
             <ContentControl Content="{Binding OpponentPlayer}" />
         </DockPanel>
     </Grid>
