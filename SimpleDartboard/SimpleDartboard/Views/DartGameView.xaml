@@ -27,7 +27,7 @@
                 <materialDesign:Card Padding="16" Margin="8">
                     <StackPanel Orientation="Horizontal">
                         <Button Content="Neustart" Command="{Binding ResetGameCommand}" />
-                        <Button Content="Letzte Aktion entfernen" Command="{Binding UndoLastScoreActionCommand}" />
+                        <Button Content="Letzte Aktion entfernen" Margin="4,0,0,0" Command="{Binding UndoLastScoreActionCommand}" />
                     </StackPanel>
                 </materialDesign:Card>
 
