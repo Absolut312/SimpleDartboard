@@ -12,6 +12,10 @@
                       DataType="{x:Type viewmodels:DartBoardScoreControlViewModel}">
             <local:DartBoardScoreControlView DataContext="{Binding}" />
         </DataTemplate>
+        <DataTemplate x:Name="dartGameControlViewTemplate"
+                      DataType="{x:Type viewmodels:DartGameControlViewModel}">
+            <local:DartGameControlView DataContext="{Binding}" />
+        </DataTemplate>
     </UserControl.Resources>
     <Grid Margin="5,5,5,5">
         <Grid.ColumnDefinitions>
@@ -25,21 +29,13 @@
         <DockPanel Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
             <StackPanel>
                 <materialDesign:Card Padding="16" Margin="8">
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="Neustart" Command="{Binding ResetGameCommand}" />
-                        <Button Content="Letzte Aktion entfernen" Margin="4,0,0,0" Command="{Binding UndoLastScoreActionCommand}" />
-                    </StackPanel>
-                </materialDesign:Card>
-
-                <materialDesign:Card Padding="16" Margin="8">
                     <StackPanel>
+                        <ContentControl Content="{Binding DartGameControlViewModel}" />
                         <ContentControl Content="{Binding DartBoardScoreControl}" />
                         <materialDesign:Card Padding="16" Margin="8">
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="{Binding TotalScore}" HorizontalAlignment="Left" FontSize="20" />
                                 <Label Content="{Binding AverageScore}" HorizontalAlignment="Center" FontSize="20" />
-                                <Button Content="Checkout" HorizontalAlignment="Right"
-                                        Command="{Binding SwitchPlayerCommand}" />
                             </StackPanel>
                         </materialDesign:Card>
                     </StackPanel>

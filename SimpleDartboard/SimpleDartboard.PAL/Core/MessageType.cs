@@ -7,5 +7,8 @@ namespace SimpleDartboard.PAL.Core
         StartGame,
         RemoveLastActionToken,
         SetIsDartboardScoreInputActive,
+        SwichtSelectedPlayer,
+        DisableUndoLastScoreAction,
+        UndoLastScoreAction
     }
 }
