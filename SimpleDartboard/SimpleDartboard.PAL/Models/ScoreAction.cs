@@ -4,6 +4,7 @@ namespace SimpleDartboard.PAL.Models
     {
         public int Score;
         public int Multiplier;
+        public bool IsReverted;
 
         public int TotalScoreAction
         {

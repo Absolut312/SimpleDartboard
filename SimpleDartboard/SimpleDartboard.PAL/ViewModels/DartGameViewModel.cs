@@ -57,7 +57,7 @@ namespace SimpleDartboard.PAL.ViewModels
                 return "Durchschnitt pro Runde: " + summedScoreActions;
             }
         }
-        
+
         public string TotalScore
         {
             get { return TransformScoreActionToToalScorePerRound(); }
@@ -128,13 +128,13 @@ namespace SimpleDartboard.PAL.ViewModels
             var lastScoreActionIndex = _scoreActionHistoryPerRound.Count - 1;
             var scoreActionToRevert = _scoreActionHistoryPerRound[lastScoreActionIndex];
             Mediator.NotifyColleagues(MessageType.RemoveLastActionToken, scoreActionToRevert);
-            scoreActionToRevert.Multiplier *= -1;
-            SelectedPlayer.AddScoreAction(scoreActionToRevert);
-            if (_scoreActionHistoryPerRound.Count == 3)
+            if (!scoreActionToRevert.IsReverted)
             {
-                Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, true);
+                SelectedPlayer.AddScoreAction(new ScoreAction
+                    {Multiplier = scoreActionToRevert.Multiplier * (-1), Score = scoreActionToRevert.Score});
             }
 
+            Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, true);
             _scoreActionHistoryPerRound.RemoveAt(lastScoreActionIndex);
             RaiseScoreActionChanges();
         }
@@ -165,8 +165,9 @@ namespace SimpleDartboard.PAL.ViewModels
             {
                 var lastScoreActionIndex = _scoreActionHistoryPerRound.Count - 1;
                 var scoreActionToRevert = _scoreActionHistoryPerRound[lastScoreActionIndex];
-                scoreActionToRevert.Multiplier *= -1;
-                SelectedPlayer.AddScoreAction(scoreActionToRevert);
+                scoreActionToRevert.IsReverted = true;
+                SelectedPlayer.AddScoreAction(new ScoreAction
+                    {Multiplier = scoreActionToRevert.Multiplier * (-1), Score = scoreActionToRevert.Score});
             }
             else if (SelectedPlayer.CurrentScore == 1 || SelectedPlayer.CurrentScore < 0)
             {
@@ -175,13 +176,8 @@ namespace SimpleDartboard.PAL.ViewModels
                     UndoLastScoreAction();
                 }
 
-                SwitchSelectedPlayer();
+                Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, false);
                 return;
-            }
-
-            if (_scoreActionHistoryPerRound.Count == 3)
-            {
-                SwitchSelectedPlayer();
             }
 
             RaiseScoreActionChanges();

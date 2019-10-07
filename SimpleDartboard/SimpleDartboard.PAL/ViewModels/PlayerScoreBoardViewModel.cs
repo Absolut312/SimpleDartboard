@@ -52,7 +52,10 @@ namespace SimpleDartboard.PAL.ViewModels
             CurrentScore -= scoreAction.TotalScoreAction;
             if (scoreAction.Multiplier < 0)
             {
-                _scoreActions.RemoveAt(_scoreActions.Count - 1);
+                if (_scoreActions.Count > 0)
+                {
+                    _scoreActions.RemoveAt(_scoreActions.Count - 1);
+                }
             }
             else
             {
