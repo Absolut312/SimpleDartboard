@@ -33,8 +33,21 @@ namespace SimpleDartboard.PAL.ViewModels
         {
             get
             {
-                var muliplierText = ScoreMultiplier > 1 ? ScoreMultiplier + "x" : "";
-                return muliplierText + " " + Score;
+                var muliplierText = "";
+                switch (ScoreMultiplier)
+                {
+                    case 2:
+                    {
+                        muliplierText += "D";
+                        break;
+                    }
+                    case 3:
+                    {
+                        muliplierText += "T";
+                        break;
+                    }
+                }
+                return muliplierText + Score;
             }
         }
     }
