@@ -33,10 +33,6 @@
                         <ContentControl Content="{Binding DartGameControlViewModel}" />
                         <ContentControl Content="{Binding DartBoardScoreControl}" />
                         <materialDesign:Card Padding="16" Margin="8">
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="{Binding TotalScore}" HorizontalAlignment="Left" FontSize="20" />
-                                <Label Content="{Binding AverageScore}" HorizontalAlignment="Center" FontSize="20" />
-                            </StackPanel>
                         </materialDesign:Card>
                     </StackPanel>
                 </materialDesign:Card>

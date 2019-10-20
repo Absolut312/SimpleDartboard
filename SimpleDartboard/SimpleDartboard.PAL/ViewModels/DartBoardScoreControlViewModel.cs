@@ -15,6 +15,7 @@ namespace SimpleDartboard.PAL.ViewModels
             }
             AddScoreInputAction(25,1);
             AddScoreInputAction(25,2);
+            AddScoreInputAction(0,1);
         }
 
         private void AddScoreInputAction(int scoreAction, int multiplier)

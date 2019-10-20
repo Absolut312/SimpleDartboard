@@ -69,6 +69,7 @@
     <Compile Include="UseCases\DartGameSettings\Load\IDartGameSettingLoadService.cs" />
     <Compile Include="UseCases\DartGameSettings\Save\IDartGameSettingSaveService.cs" />
     <Compile Include="ViewModels\ActionTokenViewModel.cs" />
+    <Compile Include="ViewModels\AverageScoreActionViewModel.cs" />
     <Compile Include="ViewModels\DartBoardScoreControlViewModel.cs" />
     <Compile Include="ViewModels\DartBoardScoreInputViewModel.cs" />
     <Compile Include="ViewModels\DartGameSettingViewModel.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="ViewModels\DartGameControlViewModel.cs" />
     <Compile Include="ViewModels\DartGameWinnerViewModel.cs" />
     <Compile Include="ViewModels\IActionTokenViewModel.cs" />
+    <Compile Include="ViewModels\IAverageScoreActionViewModel.cs" />
     <Compile Include="ViewModels\IContentViewModel.cs" />
     <Compile Include="ViewModels\IDartBoardScoreControlViewModel.cs" />
     <Compile Include="ViewModels\IDartBoardScoreInputViewModel.cs" />

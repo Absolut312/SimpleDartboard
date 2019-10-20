@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using SimpleDartboard.PAL.Core;
 using SimpleDartboard.PAL.Models;
 
@@ -55,59 +53,6 @@ namespace SimpleDartboard.PAL.ViewModels
             }
         }
 
-        public string AverageScore
-        {
-            get
-            {
-                if (_scoreActionHistoryPerRound.Count == 0) return "--";
-                var summedScoreActions = _scoreActionHistoryPerRound.Sum(x => x.Score * x.Multiplier) /
-                                         _scoreActionHistoryPerRound.Count;
-                return "Durchschnitt in dieser Runde: " + summedScoreActions;
-            }
-        }
-
-        public string TotalScore
-        {
-            get { return TransformScoreActionToToalScorePerRound(); }
-        }
-
-        private string TransformScoreActionToToalScorePerRound()
-        {
-            if (_scoreActionHistoryPerRound.Count == 0) return "--";
-            var summedScoreActions = _scoreActionHistoryPerRound.Sum(x => x.Score * x.Multiplier) /
-                                     _scoreActionHistoryPerRound.Count;
-            var scoreActionCommaSeperatedText = "";
-            foreach (var scoreAction in _scoreActionHistoryPerRound)
-            {
-                scoreActionCommaSeperatedText = TransformScoreActionToText(scoreAction, scoreActionCommaSeperatedText);
-            }
-
-            scoreActionCommaSeperatedText = scoreActionCommaSeperatedText.TrimEnd();
-            scoreActionCommaSeperatedText = scoreActionCommaSeperatedText.TrimEnd(',');
-            return "Treffer: " + scoreActionCommaSeperatedText + " Gesamt: " + summedScoreActions;
-        }
-
-        private static string TransformScoreActionToText(ScoreAction scoreAction, string scoreActionCommaSeperatedText)
-        {
-            switch (scoreAction.Multiplier)
-            {
-                case 2:
-                {
-                    scoreActionCommaSeperatedText += "D";
-                    break;
-                }
-                case 3:
-                {
-                    scoreActionCommaSeperatedText += "T";
-                    break;
-                }
-            }
-
-            scoreActionCommaSeperatedText += scoreAction.Score + ", ";
-            return scoreActionCommaSeperatedText;
-        }
-
-        private List<ScoreAction> _scoreActionHistoryPerRound;
         private IDartGameControlViewModel _dartGameControlViewModel;
 
         public DartGameViewModel(IPlayerScoreBoardViewModel playerOne,
@@ -116,7 +61,6 @@ namespace SimpleDartboard.PAL.ViewModels
             IDartGameControlViewModel dartGameControlViewModel)
         {
             _dartGameSetting = new DartGameSetting();
-            _scoreActionHistoryPerRound = new List<ScoreAction>();
             _playerOne = playerOne;
             _playerTwo = playerTwo;
             DartBoardScoreControl = dartBoardScoreControlViewModel;
@@ -136,39 +80,7 @@ namespace SimpleDartboard.PAL.ViewModels
 
         private void UndoLastScoreAction(object obj)
         {
-            var lastScoreActionIndex = _scoreActionHistoryPerRound.Count - 1;
-            var scoreActionToRevert = _scoreActionHistoryPerRound[lastScoreActionIndex];
-            Mediator.NotifyColleagues(MessageType.RemoveLastActionToken, scoreActionToRevert);
-            if (!scoreActionToRevert.IsReverted)
-            {
-                SelectedPlayer.AddScoreAction(new ScoreAction
-                    {Multiplier = scoreActionToRevert.Multiplier * (-1), Score = scoreActionToRevert.Score});
-            }
-
-            Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, true);
-            _scoreActionHistoryPerRound.RemoveAt(lastScoreActionIndex);
-            if (AreAllScoreActionsRevertedBecauseOfUnderScore())
-            {
-                ReAddRevertedScoreActions();
-            }
-
-            RaiseScoreActionChanges();
-        }
-
-        private void ReAddRevertedScoreActions()
-        {
-            _scoreActionHistoryPerRound.ForEach(x =>
-            {
-                SelectedPlayer.AddScoreAction(new ScoreAction
-                    {Multiplier = x.Multiplier, Score = x.Score});
-                x.IsReverted = false;
-            });
-        }
-
-        private bool AreAllScoreActionsRevertedBecauseOfUnderScore()
-        {
-            return !_scoreActionHistoryPerRound.Exists(x => !x.IsReverted) &&
-                   _scoreActionHistoryPerRound.Sum(x => x.Multiplier * x.Score) < SelectedPlayer.CurrentScore + 1;
+            SelectedPlayer.UndoLastScoreAction();
         }
 
         private void InitializeGameSetting(object gameSetting)
@@ -187,62 +99,12 @@ namespace SimpleDartboard.PAL.ViewModels
         {
             if (!(scoreActionObject is ScoreAction scoreAction)) return;
             SelectedPlayer.AddScoreAction(scoreAction);
-            _scoreActionHistoryPerRound.Add(scoreAction);
-            if (_scoreActionHistoryPerRound.Count == 3)
-            {
-                Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, false);
-            }
-
-            if (IsInvalidScoreActionToWin(scoreAction))
-            {
-                UndoInvalidScoreAction();
-            }
-            else if (IsInvalidScoreAction())
-            {
-                UndoRoundScoreActions();
-            }
-            else if (SelectedPlayer.CurrentScore == 0)
-            {
-                Mediator.NotifyColleagues(MessageType.ShowWinner, SelectedPlayer);
-            }
-
-            RaiseScoreActionChanges();
-        }
-
-        private void UndoInvalidScoreAction()
-        {
-            var lastScoreActionIndex = _scoreActionHistoryPerRound.Count - 1;
-            var scoreActionToRevert = _scoreActionHistoryPerRound[lastScoreActionIndex];
-            scoreActionToRevert.IsReverted = true;
-            SelectedPlayer.AddScoreAction(new ScoreAction
-                {Multiplier = scoreActionToRevert.Multiplier * (-1), Score = scoreActionToRevert.Score});
-        }
-
-        private void UndoRoundScoreActions()
-        {
-            _scoreActionHistoryPerRound.ForEach(x =>
-            {
-                x.IsReverted = true;
-                SelectedPlayer.AddScoreAction(new ScoreAction
-                    {Multiplier = x.Multiplier * (-1), Score = x.Score});
-            });
-
-            Mediator.NotifyColleagues(MessageType.DisableUndoLastScoreAction, true);
-            Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, false);
-        }
-
-        private bool IsInvalidScoreAction()
-        {
-            return SelectedPlayer.CurrentScore == 1 || SelectedPlayer.CurrentScore < 0;
-        }
-
-        private bool IsInvalidScoreActionToWin(ScoreAction scoreAction)
-        {
-            return SelectedPlayer.CurrentScore == 0 && scoreAction.Multiplier != 2;
+            if (SelectedPlayer.CurrentScore == 0) Mediator.NotifyColleagues(MessageType.ShowWinner, SelectedPlayer);
         }
 
         private void SwitchSelectedPlayer(object obj)
         {
+            SelectedPlayer.Checkout();
             var currentSelectedPlayer = SelectedPlayer;
             SelectedPlayer = OpponentPlayer;
             OpponentPlayer = currentSelectedPlayer;
@@ -251,17 +113,7 @@ namespace SimpleDartboard.PAL.ViewModels
 
         private void ClearActionTokens()
         {
-            _scoreActionHistoryPerRound.ForEach(x => Mediator.NotifyColleagues(MessageType.RemoveLastActionToken, x));
-            _scoreActionHistoryPerRound.Clear();
             Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, true);
-            RaiseScoreActionChanges();
-        }
-
-        private void RaiseScoreActionChanges()
-        {
-            Mediator.NotifyColleagues(MessageType.DisableUndoLastScoreAction, _scoreActionHistoryPerRound.Count == 0);
-            OnPropertyChanged("AverageScore");
-            OnPropertyChanged("TotalScore");
         }
     }
 }
