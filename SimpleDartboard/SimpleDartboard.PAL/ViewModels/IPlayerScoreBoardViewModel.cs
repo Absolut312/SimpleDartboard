@@ -2,11 +2,14 @@ using SimpleDartboard.PAL.Models;
 
 namespace SimpleDartboard.PAL.ViewModels
 {
-    public interface IPlayerScoreBoardViewModel: IContentViewModel
+    public interface IPlayerScoreBoardViewModel : IContentViewModel
     {
         string Name { get; set; }
         int CurrentScore { get; set; }
         void AddScoreAction(ScoreAction scoreAction);
-        string AverageScore { get; }
+        void Checkout();
+        void UndoLastScoreAction();
+        IAverageScoreActionViewModel AverageScoreActionsPerRound { get; set; }
+        IAverageScoreActionViewModel AverageScoreActionsTotal { get; set; }
     }
 }

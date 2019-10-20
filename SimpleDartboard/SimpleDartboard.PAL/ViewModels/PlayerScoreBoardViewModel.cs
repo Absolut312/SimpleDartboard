@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using SimpleDartboard.PAL.Core;
 using SimpleDartboard.PAL.Models;
 
@@ -8,18 +6,19 @@ namespace SimpleDartboard.PAL.ViewModels
     public class PlayerScoreBoardViewModel : BaseViewModel, IPlayerScoreBoardViewModel
     {
         private string _name;
-        private List<ScoreAction> _scoreActions;
 
-        public PlayerScoreBoardViewModel()
+        public PlayerScoreBoardViewModel(IAverageScoreActionViewModel averageScoreActionsTotal,
+            IAverageScoreActionViewModel averageScoreActionsPerRound)
         {
-            _scoreActions = new List<ScoreAction>();
+            AverageScoreActionsTotal = averageScoreActionsTotal;
+            AverageScoreActionsPerRound = averageScoreActionsPerRound;
             Mediator.Register(MessageType.StartGame, ClearScoreActions);
         }
 
         private void ClearScoreActions(object obj)
         {
-            _scoreActions.Clear();
-            OnPropertyChanged("AverageScore");
+            AverageScoreActionsTotal.Reset();
+            AverageScoreActionsPerRound.Reset();
         }
 
 
@@ -35,11 +34,16 @@ namespace SimpleDartboard.PAL.ViewModels
         }
 
         private int _currentScore;
+        private IAverageScoreActionViewModel _averageScoreActionsPerRound;
+        private IAverageScoreActionViewModel _averageScoreActionsTotal;
 
         public int CurrentScore
         {
-            get { return _currentScore; }
-
+            get
+            {
+                return _currentScore - (AverageScoreActionsTotal.GetScoreActionsSum() +
+                                        AverageScoreActionsPerRound.GetScoreActionsSum());
+            }
             set
             {
                 _currentScore = value;
@@ -49,29 +53,47 @@ namespace SimpleDartboard.PAL.ViewModels
 
         public void AddScoreAction(ScoreAction scoreAction)
         {
-            CurrentScore -= scoreAction.TotalScoreAction;
-            if (scoreAction.Multiplier < 0)
-            {
-                if (_scoreActions.Count > 0)
-                {
-                    _scoreActions.RemoveAt(_scoreActions.Count - 1);
-                }
-            }
-            else
-            {
-                _scoreActions.Add(scoreAction);
-            }
-
-            OnPropertyChanged("AverageScore");
+            AverageScoreActionsPerRound.AddScoreAction(scoreAction);
+            OnPropertyChanged("AverageScoreActionsPerRound");
+            if (CurrentScore > 1) return;
+            if (CurrentScore == 0 && scoreAction.Multiplier != 2) AverageScoreActionsPerRound.RevertLastScoreActions();
+            if (CurrentScore < 0 || CurrentScore == 1) AverageScoreActionsPerRound.RevertAllScoreActions();
+            OnPropertyChanged("AverageScoreActionsPerRound");
+            OnPropertyChanged("CurrentScore");
         }
 
-        public string AverageScore
+        public void Checkout()
         {
-            get
+            var currentRoundScoreAction = AverageScoreActionsPerRound.CheckoutScoreActions();
+            AverageScoreActionsTotal.AddScoreAction(currentRoundScoreAction);
+            OnPropertyChanged("CurrentScore");
+        }
+
+        public void UndoLastScoreAction()
+        {
+            AverageScoreActionsPerRound.UndoLastScoreAction();
+            OnPropertyChanged("CurrentScore");
+        }
+
+        public IAverageScoreActionViewModel AverageScoreActionsPerRound
+        {
+            get => _averageScoreActionsPerRound;
+
+            set
             {
-                if (_scoreActions.Count == 0) return "--";
-                var summedScoreActions = _scoreActions.Sum(x => x.Score * x.Multiplier) / _scoreActions.Count;
-                return "Durchschnitt: " + summedScoreActions;
+                _averageScoreActionsPerRound = value;
+                OnPropertyChanged("AverageScoreActionsPerRound");
+            }
+        }
+
+        public IAverageScoreActionViewModel AverageScoreActionsTotal
+        {
+            get => _averageScoreActionsTotal;
+
+            set
+            {
+                _averageScoreActionsTotal = value;
+                OnPropertyChanged("AverageScoreActionsTotal");
             }
         }
     }

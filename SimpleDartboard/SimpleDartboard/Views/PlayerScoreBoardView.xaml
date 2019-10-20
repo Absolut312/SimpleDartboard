@@ -7,10 +7,18 @@
             <StackPanel Orientation="Vertical">
                 <materialDesign:Card Padding="16" Margin="8">
                     <StackPanel>
-                        <Label Content="Spieler:" FontSize="45" FontWeight="Bold" />
                         <Label Content="{Binding Name}" FontSize="60" />
-                        <Label Content="{Binding CurrentScore}" FontSize="100" FontWeight="Bold" />
-                        <Label Content="{Binding AverageScore}" FontSize="20" />
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{Binding CurrentScore}" FontSize="100" FontWeight="Bold" />
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="{Binding AverageScoreActionsPerRound.CommaSeparatedScoreActions}" FontSize="45" FontWeight="Bold" />
+                                <Label Content="{Binding AverageScoreActionsPerRound.AverageScoreActions}" FontSize="45" FontWeight="Bold" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Average Score:" FontSize="45" />
+                            <Label Content="{Binding AverageScoreActionsTotal.AverageScoreActions}" FontSize="45" />
+                        </StackPanel>
                     </StackPanel>
                 </materialDesign:Card>
             </StackPanel>

@@ -8,7 +8,5 @@ namespace SimpleDartboard.PAL.ViewModels
         IPlayerScoreBoardViewModel OpponentPlayer { get; set; }
         IDartBoardScoreControlViewModel DartBoardScoreControl { get; set; }
         IDartGameControlViewModel DartGameControlViewModel { get; set; }
-        string AverageScore { get; }
-        string TotalScore { get; }
     }
 }
