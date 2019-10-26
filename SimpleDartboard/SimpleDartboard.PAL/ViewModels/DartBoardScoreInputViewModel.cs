@@ -38,7 +38,13 @@ namespace SimpleDartboard.PAL.ViewModels
                 new RelayCommand(ReduceCurrentScoreForSelectedPlayer, () => ActionTokens.Count < 3 && _isInputEnabled);
             ActionTokens = new ObservableCollection<IActionTokenViewModel>();
             Mediator.Register(MessageType.RemoveLastActionToken, RemoveLastActionToken);
+            Mediator.Register(MessageType.ClearActionTokens, ClearActionTokens);
             Mediator.Register(MessageType.SetIsDartboardScoreInputActive, SetIsDartboardInputActive);
+        }
+
+        private void ClearActionTokens(object obj)
+        {
+            ActionTokens.Clear();
         }
 
         private void SetIsDartboardInputActive(object booleanObject)

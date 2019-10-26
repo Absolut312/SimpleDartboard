@@ -41,11 +41,12 @@ namespace SimpleDartboard.PAL.ViewModels
 
             var scoreActionToUndo = _scoreActions[_scoreActions.Count - 1];
             Mediator.NotifyColleagues(MessageType.RemoveLastActionToken, scoreActionToUndo);
-
+            
             Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, true);
             _scoreActions.RemoveAt(_scoreActions.Count - 1);
             Mediator.NotifyColleagues(MessageType.DisableUndoLastScoreAction, _scoreActions.Count == 0);
             //TODO: Recalculate Current valid Scoreactions
+            
             OnPropertyChanged("AverageScoreActions");
             OnPropertyChanged("CommaSeparatedScoreActions");
         }

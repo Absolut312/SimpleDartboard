@@ -11,6 +11,7 @@ namespace SimpleDartboard.PAL.Core
         DisableUndoLastScoreAction,
         UndoLastScoreAction,
         InitializeNewGame,
-        ShowWinner
+        ShowWinner,
+        ClearActionTokens
     }
 }
