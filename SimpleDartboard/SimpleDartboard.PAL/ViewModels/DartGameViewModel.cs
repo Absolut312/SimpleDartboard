@@ -114,6 +114,7 @@ namespace SimpleDartboard.PAL.ViewModels
         private void ClearActionTokens()
         {
             Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, true);
+            Mediator.NotifyColleagues(MessageType.ClearActionTokens, null);
         }
     }
 }
