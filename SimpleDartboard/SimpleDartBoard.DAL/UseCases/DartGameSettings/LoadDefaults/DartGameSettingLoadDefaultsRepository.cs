@@ -3,15 +3,22 @@ using SimpleDartboard.PAL.Models;
 
 namespace SimpleDartBoard.DAL.UseCases.DartGameSettings.LoadDefaults
 {
-    public class DartGameSettingLoadDefaultsRepository: IDartGameSettingLoadDefaultsRepository
+    public class DartGameSettingLoadDefaultsRepository : IDartGameSettingLoadDefaultsRepository
     {
         public DartGameSetting Load()
         {
             return new DartGameSetting
             {
-                StartingScore = 501,
-                PlayerOneName = "Player 1",
-                PlayerTwoName = "Player 2"
+                PlayerOne = new PlayerGameSetting
+                {
+                    Name = "Player 1",
+                    Score = 501
+                },
+                PlayerTwo = new PlayerGameSetting
+                {
+                    Name = "Player 2",
+                    Score = 501
+                }
             };
         }
     }

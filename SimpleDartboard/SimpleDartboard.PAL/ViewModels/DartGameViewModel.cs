@@ -106,10 +106,10 @@ namespace SimpleDartboard.PAL.ViewModels
             var dartGameSetting = gameSetting as DartGameSetting;
             if (dartGameSetting == null) return;
             _dartGameSetting = dartGameSetting;
-            _playerOne.Name = dartGameSetting.PlayerOneName;
-            _playerOne.CurrentScore = dartGameSetting.StartingScore;
-            _playerTwo.Name = dartGameSetting.PlayerTwoName;
-            _playerTwo.CurrentScore = dartGameSetting.StartingScore;
+            _playerOne.Name = dartGameSetting.PlayerOne.Name;
+            _playerOne.CurrentScore = dartGameSetting.PlayerOne.Score;
+            _playerTwo.Name = dartGameSetting.PlayerTwo.Name;
+            _playerTwo.CurrentScore = dartGameSetting.PlayerTwo.Score;
             ClearActionTokens();
         }
 

@@ -7,7 +7,8 @@ namespace SimpleDartboard.PAL.ViewModels
         ICommand StartGameCommand { get; set; }
         string PlayerOneName { get; set; }
         string PlayerTwoName { get; set; }
-        int StartingScore { get; set; }
+        int PlayerOneScore { get; set; }
+        int PlayerTwoScore { get; set; }
         
     }
 }

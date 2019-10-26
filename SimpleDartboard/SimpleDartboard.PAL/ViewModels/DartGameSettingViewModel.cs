@@ -16,31 +16,41 @@ namespace SimpleDartboard.PAL.ViewModels
 
         public string PlayerOneName
         {
-            get { return _dartGameSetting.PlayerOneName; }
+            get { return _dartGameSetting.PlayerOne.Name; }
             set
             {
-                _dartGameSetting.PlayerOneName = value;
+                _dartGameSetting.PlayerOne.Name = value;
                 OnPropertyChanged("PlayerOneName");
             }
         }
 
         public string PlayerTwoName
         {
-            get { return _dartGameSetting.PlayerTwoName; }
+            get { return _dartGameSetting.PlayerTwo.Name; }
             set
             {
-                _dartGameSetting.PlayerTwoName = value;
+                _dartGameSetting.PlayerTwo.Name = value;
                 OnPropertyChanged("PlayerTwoName");
             }
         }
 
-        public int StartingScore
+        public int PlayerOneScore
         {
-            get { return _dartGameSetting.StartingScore; }
+            get { return _dartGameSetting.PlayerOne.Score; }
             set
             {
-                _dartGameSetting.StartingScore = value;
-                OnPropertyChanged("StartingScore");
+                _dartGameSetting.PlayerOne.Score = value;
+                OnPropertyChanged("PlayerOneScore");
+            }
+        }
+
+        public int PlayerTwoScore
+        {
+            get { return _dartGameSetting.PlayerTwo.Score; }
+            set
+            {
+                _dartGameSetting.PlayerTwo.Score = value;
+                OnPropertyChanged("PlayerTwoScore");
             }
         }
 
@@ -53,7 +63,7 @@ namespace SimpleDartboard.PAL.ViewModels
             StartGameCommand = new RelayCommand(StartGame, () =>
             {
                 return PlayerOneName != PlayerTwoName && PlayerOneName != "" && PlayerTwoName != "" &&
-                       StartingScore > 1;
+                       PlayerOneScore > 1 && PlayerTwoScore > 1;
             });
             Mediator.Register(MessageType.ChangeMainViewContent, InitializeDartGameSetting);
         }

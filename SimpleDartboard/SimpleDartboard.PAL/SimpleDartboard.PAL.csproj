@@ -63,6 +63,7 @@
     <Compile Include="Core\Mediator.cs" />
     <Compile Include="Core\MessageType.cs" />
     <Compile Include="Models\DartGameSetting.cs" />
+    <Compile Include="Models\PlayerGameSetting.cs" />
     <Compile Include="Models\ScoreAction.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
