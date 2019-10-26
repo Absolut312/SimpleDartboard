@@ -7,7 +7,7 @@
             <StackPanel Orientation="Vertical">
                 <materialDesign:Card Padding="16" Margin="8">
                     <StackPanel>
-                        <Label Content="{Binding Name}" FontSize="60" />
+                        <Label Content="{Binding Name}" FontSize="55" />
                         <StackPanel Orientation="Horizontal">
                             <Label Content="{Binding CurrentScore}" FontSize="100" FontWeight="Bold" />
                             <StackPanel Orientation="Horizontal">

@@ -18,31 +18,23 @@
         </DataTemplate>
     </UserControl.Resources>
     <Grid Margin="5,5,5,5">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*" />
-            <ColumnDefinition Width="5*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="6*" />
-            <RowDefinition Height="4*" />
-        </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
+        <DockPanel>
             <StackPanel>
                 <materialDesign:Card Padding="16" Margin="8">
                     <StackPanel>
                         <ContentControl Content="{Binding DartGameControlViewModel}" />
                         <ContentControl Content="{Binding DartBoardScoreControl}" />
-                        <materialDesign:Card Padding="16" Margin="8">
-                        </materialDesign:Card>
+                        <DockPanel>
+                            <DockPanel HorizontalAlignment="Left">
+                                <ContentControl Content="{Binding SelectedPlayer}" />
+                            </DockPanel>
+                            <DockPanel HorizontalAlignment="Right">
+                                <ContentControl Content="{Binding OpponentPlayer}" />
+                            </DockPanel>
+                        </DockPanel>
                     </StackPanel>
                 </materialDesign:Card>
             </StackPanel>
-        </DockPanel>
-        <DockPanel Grid.Row="1" Grid.Column="0">
-            <ContentControl Content="{Binding SelectedPlayer}" />
-        </DockPanel>
-        <DockPanel Grid.Row="1" Grid.Column="1">
-            <ContentControl Content="{Binding OpponentPlayer}" />
         </DockPanel>
     </Grid>
 </UserControl>
