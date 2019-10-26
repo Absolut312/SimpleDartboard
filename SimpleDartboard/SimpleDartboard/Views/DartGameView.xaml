@@ -22,16 +22,22 @@
             <StackPanel>
                 <materialDesign:Card Padding="16" Margin="8">
                     <StackPanel>
-                        <ContentControl Content="{Binding DartGameControlViewModel}" />
                         <ContentControl Content="{Binding DartBoardScoreControl}" />
                         <DockPanel>
-                            <DockPanel HorizontalAlignment="Left">
-                                <ContentControl Content="{Binding SelectedPlayer}" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <DockPanel HorizontalAlignment="Left" Grid.Column="0">
+                                <ContentControl Content="{Binding LeftPlayer}" />
                             </DockPanel>
-                            <DockPanel HorizontalAlignment="Right">
-                                <ContentControl Content="{Binding OpponentPlayer}" />
+                            <DockPanel HorizontalAlignment="Right" Grid.Column="1">
+                                <ContentControl Content="{Binding RightPlayer}" />
                             </DockPanel>
+                            </Grid>
                         </DockPanel>
+                        <ContentControl Content="{Binding DartGameControlViewModel}" />
                     </StackPanel>
                 </materialDesign:Card>
             </StackPanel>

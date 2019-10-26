@@ -8,13 +8,25 @@
                 <materialDesign:Card Padding="16" Margin="8">
                     <StackPanel>
                         <Label Content="{Binding Name}" FontSize="80" />
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="{Binding CurrentScore}" FontSize="100" FontWeight="Bold" />
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="{Binding AverageScoreActionsPerRound.CommaSeparatedScoreActions}" FontSize="45" FontWeight="Bold" />
-                                <Label Content="{Binding AverageScoreActionsPerRound.AverageScoreActions}" FontSize="45" FontWeight="Bold" />
-                            </StackPanel>
-                        </StackPanel>
+                        <DockPanel>
+                            <DockPanel HorizontalAlignment="Left">
+                                <Label Content="{Binding CurrentScore}" FontSize="100" FontWeight="Bold" />
+                            </DockPanel>
+                            <DockPanel HorizontalAlignment="Stretch" Margin="64,0,0,0">
+                                <DockPanel HorizontalAlignment="Left">
+                                    <Label Content="Average:"
+                                           FontSize="45" FontWeight="Bold" />
+                                </DockPanel>
+                                <DockPanel HorizontalAlignment="Center">
+                                    <Label Content="{Binding AverageScoreActionsPerRound.CommaSeparatedScoreActions}"
+                                           FontSize="45" FontWeight="Bold" />
+                                </DockPanel>
+                                <DockPanel HorizontalAlignment="Right">
+                                    <Label Content="{Binding AverageScoreActionsPerRound.AverageScoreActions}"
+                                           FontSize="45" FontWeight="Bold" />
+                                </DockPanel>
+                            </DockPanel>
+                        </DockPanel>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Average Score:" FontSize="45" />
                             <Label Content="{Binding AverageScoreActionsTotal.AverageScoreActions}" FontSize="45" />

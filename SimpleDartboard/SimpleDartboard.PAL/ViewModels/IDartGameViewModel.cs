@@ -4,6 +4,8 @@ namespace SimpleDartboard.PAL.ViewModels
 {
     public interface IDartGameViewModel : IContentViewModel
     {
+        IPlayerScoreBoardViewModel LeftPlayer { get; set; }
+        IPlayerScoreBoardViewModel RightPlayer { get; set; }
         IPlayerScoreBoardViewModel SelectedPlayer { get; set; }
         IPlayerScoreBoardViewModel OpponentPlayer { get; set; }
         IDartBoardScoreControlWrapperViewModel DartBoardScoreControl { get; set; }
