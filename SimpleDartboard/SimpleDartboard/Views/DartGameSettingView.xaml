@@ -32,7 +32,7 @@
                                      FontSize="40"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="Punkte:" 
+                            <Label Content="Score:" 
                                    VerticalAlignment="Center" 
                                    FontSize="40"/>
                             <TextBox Margin="10,0,0,0" 
@@ -43,7 +43,7 @@
                         </StackPanel>
                     </StackPanel>
                 </materialDesign:Card>
-                <Button Content="Spiel starten" Command="{Binding StartGameCommand}" />
+                <Button Content="Start Game" Command="{Binding StartGameCommand}" />
             </StackPanel>
         </DockPanel>
     </Grid>
