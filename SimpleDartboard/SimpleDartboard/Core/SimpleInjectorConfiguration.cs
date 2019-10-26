@@ -51,6 +51,7 @@ namespace SimpleDartboard.Core
             container.Register<IDartGameControlViewModel, DartGameControlViewModel>();
             container.Register<IDartGameWinnerViewModel, DartGameWinnerViewModel>();
             container.Register<IAverageScoreActionViewModel, AverageScoreActionViewModel>();
+            container.Register<IDartBoardScoreControlWrapperViewModel, DartBoardScoreControlWrapperViewModel>();
         }
     }
 }

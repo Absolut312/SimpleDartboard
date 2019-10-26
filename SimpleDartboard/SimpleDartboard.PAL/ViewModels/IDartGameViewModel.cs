@@ -6,7 +6,7 @@ namespace SimpleDartboard.PAL.ViewModels
     {
         IPlayerScoreBoardViewModel SelectedPlayer { get; set; }
         IPlayerScoreBoardViewModel OpponentPlayer { get; set; }
-        IDartBoardScoreControlViewModel DartBoardScoreControl { get; set; }
+        IDartBoardScoreControlWrapperViewModel DartBoardScoreControl { get; set; }
         IDartGameControlViewModel DartGameControlViewModel { get; set; }
     }
 }
