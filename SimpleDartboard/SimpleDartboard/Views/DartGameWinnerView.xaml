@@ -14,7 +14,7 @@
             <materialDesign:Card Padding="32" Margin="16">
                 <StackPanel Orientation="Vertical">
                     <ContentPresenter Content="{Binding PlayerScoreBoardViewModel}" />
-                    <Button Content="Neues Spiel starten" Command="{Binding StartNewGameCommand}" />
+                    <Button Content="Start new Game" Command="{Binding StartNewGameCommand}" />
                 </StackPanel>
             </materialDesign:Card>
         </DockPanel>

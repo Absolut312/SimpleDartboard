@@ -19,9 +19,9 @@
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Left">
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="Neues Spiel"
+                        <Button Content="New Game"
                                 Command="{Binding ResetGameCommand}" />
-                        <Button Content="Letzte Aktion entfernen"
+                        <Button Content="Undo last action"
                                 Command="{Binding UndoLastScoreActionCommand}"
                                 Margin="4,0,0,0" />
                         <Button Content="Checkout"
