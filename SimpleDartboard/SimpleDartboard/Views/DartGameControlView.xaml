@@ -16,23 +16,25 @@
     <Grid>
         <DockPanel>
             <materialDesign:Card Padding="16" Margin="8">
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Left">
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="New Game"
-                                Command="{Binding ResetGameCommand}" />
-                        <Button Content="Undo last action"
-                                Command="{Binding UndoLastScoreActionCommand}"
-                                Margin="4,0,0,0" />
-                        <Button Content="Checkout"
-                                HorizontalAlignment="Right"
-                                Command="{Binding SwitchPlayerCommand}"
-                                Margin="4,0,0,0" />
+                <DockPanel HorizontalAlignment="Right">
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="New Game"
+                                    Command="{Binding ResetGameCommand}" />
+                            <Button Content="Undo last action"
+                                    Command="{Binding UndoLastScoreActionCommand}"
+                                    Margin="4,0,0,0" />
+                            <Button Content="Checkout"
+                                    HorizontalAlignment="Right"
+                                    Command="{Binding SwitchPlayerCommand}"
+                                    Margin="4,0,0,0" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <ContentPresenter Content="{Binding NavigationBarViewModel}" />
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <ContentPresenter Content="{Binding NavigationBarViewModel}" />
-                    </StackPanel>
-                </StackPanel>
+                </DockPanel>
             </materialDesign:Card>
         </DockPanel>
     </Grid>

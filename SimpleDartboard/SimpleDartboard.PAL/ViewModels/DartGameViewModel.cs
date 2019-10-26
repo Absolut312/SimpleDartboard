@@ -11,6 +11,24 @@ namespace SimpleDartboard.PAL.ViewModels
         private IPlayerScoreBoardViewModel _selectedPlayer;
         private IPlayerScoreBoardViewModel _opponentPlayer;
 
+        public IPlayerScoreBoardViewModel LeftPlayer
+        {
+            get { return _playerOne; }
+            set
+            {
+                _playerOne = value;
+                OnPropertyChanged("LeftPlayer");
+            }
+        }
+
+        public IPlayerScoreBoardViewModel RightPlayer { 
+            get { return _playerTwo; }
+            set
+            {
+                _playerTwo = value;
+                OnPropertyChanged("RightPlayer");
+            } }
+
         public IPlayerScoreBoardViewModel SelectedPlayer
         {
             get { return _selectedPlayer; }
@@ -61,12 +79,12 @@ namespace SimpleDartboard.PAL.ViewModels
             IDartGameControlViewModel dartGameControlViewModel)
         {
             _dartGameSetting = new DartGameSetting();
-            _playerOne = playerOne;
-            _playerTwo = playerTwo;
+            LeftPlayer = playerOne;
+            RightPlayer = playerTwo;
             DartBoardScoreControl = dartBoardScoreControlViewModel;
             DartGameControlViewModel = dartGameControlViewModel;
-            SelectedPlayer = _playerOne;
-            OpponentPlayer = _playerTwo;
+            SelectedPlayer = LeftPlayer;
+            OpponentPlayer = RightPlayer;
             RegisterMediatorMessages();
         }
 
