@@ -10,40 +10,55 @@
     <Grid>
         <DockPanel>
             <StackPanel Orientation="Vertical">
-                <materialDesign:Card Padding="32" Margin="16">
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Player 1:" VerticalAlignment="Center" 
-                                   FontSize="40" />
-                            <TextBox Margin="10,0,0,0" 
-                                     VerticalAlignment="Center" 
-                                     Text="{Binding PlayerOneName}"
-                                     MinWidth="50" 
-                                     FontSize="40"/>
+                    <materialDesign:Card Padding="16" Margin="8">
+                        <StackPanel>
+                            <Label Content="Player 1" FontSize="60" FontWeight="Bold" />
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Name:" VerticalAlignment="Center"
+                                       FontSize="40" />
+                                <TextBox Margin="10,0,0,0"
+                                         VerticalAlignment="Center"
+                                         Text="{Binding PlayerOneName}"
+                                         MinWidth="50"
+                                         FontSize="40" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Score:" VerticalAlignment="Center"
+                                       FontSize="40" />
+                                <TextBox Margin="10,0,0,0"
+                                         VerticalAlignment="Center"
+                                         Text="{Binding PlayerOneScore}"
+                                         MinWidth="50"
+                                         FontSize="40" />
+                            </StackPanel>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Player 2:" 
-                                   VerticalAlignment="Center" 
-                                   FontSize="40"/>
-                            <TextBox Margin="10,0,0,0" 
-                                     VerticalAlignment="Center" 
-                                     Text="{Binding PlayerTwoName}"
-                                     MinWidth="50" 
-                                     FontSize="40"/>
+                    </materialDesign:Card>
+                    <materialDesign:Card Padding="16" Margin="8">
+                        <StackPanel>
+                            <Label Content="Player 2" FontSize="60" FontWeight="Bold" />
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Name:" VerticalAlignment="Center"
+                                       FontSize="40" />
+                                <TextBox Margin="10,0,0,0"
+                                         VerticalAlignment="Center"
+                                         Text="{Binding PlayerTwoName}"
+                                         MinWidth="50"
+                                         FontSize="40" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Score:" VerticalAlignment="Center"
+                                       FontSize="40" />
+                                <TextBox Margin="10,0,0,0"
+                                         VerticalAlignment="Center"
+                                         Text="{Binding PlayerTwoScore}"
+                                         MinWidth="50"
+                                         FontSize="40" />
+                            </StackPanel>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Score:" 
-                                   VerticalAlignment="Center" 
-                                   FontSize="40"/>
-                            <TextBox Margin="10,0,0,0" 
-                                     VerticalAlignment="Center" 
-                                     Text="{Binding StartingScore}"
-                                     MinWidth="50" 
-                                     FontSize="40"/>
-                        </StackPanel>
-                    </StackPanel>
-                </materialDesign:Card>
-                <Button Content="Start Game" Command="{Binding StartGameCommand}" />
+                    </materialDesign:Card>
+                <DockPanel HorizontalAlignment="Right">
+                    <Button Content="Start Game" Margin="8" Command="{Binding StartGameCommand}" />
+                </DockPanel>
             </StackPanel>
         </DockPanel>
     </Grid>
