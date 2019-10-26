@@ -17,7 +17,7 @@
                 <ItemsControl ItemsSource="{Binding ScoreInputActions}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" ItemWidth="120" ItemHeight="60"></WrapPanel>
+                            <WrapPanel Orientation="Horizontal" ItemWidth="80" ItemHeight="65" Width="250"></WrapPanel>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>

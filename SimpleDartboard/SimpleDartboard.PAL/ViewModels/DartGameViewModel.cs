@@ -31,9 +31,9 @@ namespace SimpleDartboard.PAL.ViewModels
             }
         }
 
-        private IDartBoardScoreControlViewModel _dartBoardScoreControl;
+        private IDartBoardScoreControlWrapperViewModel _dartBoardScoreControl;
 
-        public IDartBoardScoreControlViewModel DartBoardScoreControl
+        public IDartBoardScoreControlWrapperViewModel DartBoardScoreControl
         {
             get { return _dartBoardScoreControl; }
             set
@@ -57,7 +57,7 @@ namespace SimpleDartboard.PAL.ViewModels
 
         public DartGameViewModel(IPlayerScoreBoardViewModel playerOne,
             IPlayerScoreBoardViewModel playerTwo,
-            IDartBoardScoreControlViewModel dartBoardScoreControlViewModel,
+            IDartBoardScoreControlWrapperViewModel dartBoardScoreControlViewModel,
             IDartGameControlViewModel dartGameControlViewModel)
         {
             _dartGameSetting = new DartGameSetting();

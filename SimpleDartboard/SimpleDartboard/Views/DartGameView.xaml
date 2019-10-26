@@ -9,8 +9,8 @@
             <local:PlayerScoreBoardView DataContext="{Binding}" />
         </DataTemplate>
         <DataTemplate x:Name="dartBoardScoreControlViewTemplate"
-                      DataType="{x:Type viewmodels:DartBoardScoreControlViewModel}">
-            <local:DartBoardScoreControlView DataContext="{Binding}" />
+                      DataType="{x:Type viewmodels:DartBoardScoreControlWrapperViewModel}">
+            <local:DartBoardScoreControlWrapperView DataContext="{Binding}" />
         </DataTemplate>
         <DataTemplate x:Name="dartGameControlViewTemplate"
                       DataType="{x:Type viewmodels:DartGameControlViewModel}">

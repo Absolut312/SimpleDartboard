@@ -15,7 +15,7 @@
     </UserControl.Resources>
     <Grid>
         <DockPanel>
-            <Button VerticalAlignment="Center"
+            <Button VerticalAlignment="Center" Height="65"
                     Command="{Binding AddScoreActionForSelectedPlayerCommand}">
                 <StackPanel Orientation="Horizontal">
                     <ItemsControl ItemsSource="{Binding ActionTokens}">
