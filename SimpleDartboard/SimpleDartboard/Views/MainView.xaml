@@ -14,12 +14,43 @@
         <DataTemplate x:Name="dartGameWinnerViewTemplate" DataType="{x:Type viewmodels:DartGameWinnerViewModel}">
             <views:DartGameWinnerView DataContext="{Binding}" />
         </DataTemplate>
+        <DataTemplate x:Name="topbarViewTemplate" DataType="{x:Type viewmodels:TopbarViewModel}">
+            <views:TopbarView DataContext="{Binding}" />
+        </DataTemplate>
+        <DataTemplate x:Name="navigationBarViewTemplate" DataType="{x:Type viewmodels:NavigationbarViewModel}">
+            <views:NavigationbarView DataContext="{Binding}" />
+        </DataTemplate>
     </UserControl.Resources>
     <Grid>
         <DockPanel>
-            <materialDesign:Card Padding="32" Margin="16">
-                <ContentControl Content="{Binding ContentViewModel}" />
-            </materialDesign:Card>
+            <DockPanel Dock="Top">
+                <ContentPresenter Content="{Binding TopbarViewModel}" />
+            </DockPanel>
+            <DockPanel Dock="Left">
+                <materialDesign:Transitioner SelectedIndex="{Binding NavigationIndex}"
+                                             AutoApplyTransitionOrigins="True">
+                    <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft}">
+                        <materialDesign:Card Margin="16" Padding="8">
+                            <ContentPresenter Content="{Binding NavigationbarViewModel}" />
+                        </materialDesign:Card>
+                    </materialDesign:TransitionerSlide>
+                </materialDesign:Transitioner>
+            </DockPanel>
+            <DockPanel Dock="Left">
+                <materialDesign:Transitioner SelectedIndex="{Binding ContentAnimationIndex}"
+                                             AutoApplyTransitionOrigins="True">
+                    <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft}">
+                        <materialDesign:Card Margin="16" Padding="8">
+                            <ContentPresenter Content="{Binding ContentViewModel}" />
+                        </materialDesign:Card>
+                    </materialDesign:TransitionerSlide>
+                    <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft}">
+                        <materialDesign:Card Margin="16" Padding="8">
+                            <ContentPresenter Content="{Binding ContentViewModel}" />
+                        </materialDesign:Card>
+                    </materialDesign:TransitionerSlide>
+                </materialDesign:Transitioner>
+            </DockPanel>
         </DockPanel>
     </Grid>
 </UserControl>

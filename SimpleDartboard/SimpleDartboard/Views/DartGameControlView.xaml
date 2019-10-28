@@ -8,11 +8,6 @@
              xmlns:viewmodels="clr-namespace:SimpleDartboard.PAL.ViewModels;assembly=SimpleDartboard.PAL"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <DataTemplate x:Name="navigationBarViewTemplate" DataType="{x:Type viewmodels:NavigationBarViewModel}">
-            <local:NavigationBarView DataContext="{Binding}" />
-        </DataTemplate>
-    </UserControl.Resources>
     <Grid>
         <DockPanel>
             <materialDesign:Card Padding="16" Margin="8">

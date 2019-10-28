@@ -42,7 +42,7 @@ namespace SimpleDartboard.Core
         private static void RegisterViewModels(Container container)
         {
             container.Register<IMainViewModel, MainViewModel>();
-            container.Register<INavigationBarViewModel, NavigationBarViewModel>();
+            container.Register<INavigationbarViewModel, NavigationbarViewModel>();
             container.Register<IPlayerScoreBoardViewModel, PlayerScoreBoardViewModel>();
             container.Register<IDartBoardScoreInputViewModel, DartBoardScoreInputViewModel>();
             container.Register<IDartGameViewModel, DartGameViewModel>();
@@ -52,6 +52,7 @@ namespace SimpleDartboard.Core
             container.Register<IDartGameWinnerViewModel, DartGameWinnerViewModel>();
             container.Register<IAverageScoreActionViewModel, AverageScoreActionViewModel>();
             container.Register<IDartBoardScoreControlWrapperViewModel, DartBoardScoreControlWrapperViewModel>();
+            container.Register<ITopbarViewModel, TopbarViewModel>();
         }
     }
 }

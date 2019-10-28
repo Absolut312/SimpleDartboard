@@ -12,6 +12,7 @@ namespace SimpleDartboard.PAL.Core
         UndoLastScoreAction,
         InitializeNewGame,
         ShowWinner,
-        ClearActionTokens
+        ClearActionTokens,
+        UpdateNavigationbar
     }
 }

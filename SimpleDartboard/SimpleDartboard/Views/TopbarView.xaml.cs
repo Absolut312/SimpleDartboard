@@ -2,9 +2,9 @@ using System.Windows.Controls;
 
 namespace SimpleDartboard.Views
 {
-    public partial class NavigationBarView : UserControl
+    public partial class TopbarView : UserControl
     {
-        public NavigationBarView()
+        public TopbarView()
         {
             InitializeComponent();
         }

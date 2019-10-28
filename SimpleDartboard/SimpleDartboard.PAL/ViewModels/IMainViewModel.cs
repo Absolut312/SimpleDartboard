@@ -4,7 +4,8 @@ namespace SimpleDartboard.PAL.ViewModels
 {
     public interface IMainViewModel
     {
-        INavigationBarViewModel NavigationBarViewModel { get; set; }
+        ITopbarViewModel TopbarViewModel { get; set; }
+        INavigationbarViewModel NavigationbarViewModel { get; set; }
         IContentViewModel ContentViewModel { get; set; }
     }
 }

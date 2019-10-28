@@ -91,11 +91,14 @@
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NavigationBarView.xaml.cs">
-      <DependentUpon>NavigationBarView.xaml</DependentUpon>
+    <Compile Include="Views\NavigationbarView.xaml.cs">
+      <DependentUpon>NavigationbarView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PlayerScoreBoardView.xaml.cs">
       <DependentUpon>PlayerScoreBoardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TopbarView.xaml.cs">
+      <DependentUpon>TopbarView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -119,8 +122,9 @@
     <Page Include="Views\DartGameView.xaml" />
     <Page Include="Views\DartGameWinnerView.xaml" />
     <Page Include="Views\MainView.xaml" />
-    <Page Include="Views\NavigationBarView.xaml" />
+    <Page Include="Views\NavigationbarView.xaml" />
     <Page Include="Views\PlayerScoreBoardView.xaml" />
+    <Page Include="Views\TopbarView.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />

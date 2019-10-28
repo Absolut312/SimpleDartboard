@@ -4,13 +4,13 @@ using SimpleDartboard.PAL.Core;
 
 namespace SimpleDartboard.PAL.ViewModels
 {
-    public class NavigationBarViewModel : BaseViewModel, INavigationBarViewModel
+    public class NavigationbarViewModel : BaseViewModel, INavigationbarViewModel
     {
         private IDartGameSettingViewModel _dartGameSettingViewModel;
         private IDartGameViewModel _dartGameViewModel;
         private IDartGameWinnerViewModel _dartGameWinnerViewModel;
 
-        public NavigationBarViewModel(IDartGameViewModel dartGameViewModel,
+        public NavigationbarViewModel(IDartGameViewModel dartGameViewModel,
             IDartGameSettingViewModel dartGameSettingViewModel,
             IDartGameWinnerViewModel dartGameWinnerViewModel)
         {
