@@ -164,6 +164,7 @@ namespace SimpleDartboard.PAL.ViewModels
 
         private void InitializePlayerLegs(IPlayerScoreBoardViewModel player, int legAmount)
         {
+            player.Legs.Clear();
             for (var i = 0; i < legAmount; i++)
             {
                 player.AddLeg();

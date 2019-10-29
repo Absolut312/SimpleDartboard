@@ -15,7 +15,7 @@
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Left">
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="New Game"
+                            <Button Content="New Match"
                                     Command="{Binding ResetGameCommand}" />
                             <Button Content="Undo last action"
                                     Command="{Binding UndoLastScoreActionCommand}"

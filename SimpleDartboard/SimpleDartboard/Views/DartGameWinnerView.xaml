@@ -16,7 +16,7 @@
                     <materialDesign:Card Padding="16" Margin="8">
                         <ContentPresenter Content="{Binding PlayerScoreBoardViewModel}" />
                     </materialDesign:Card>
-                    <Button Content="Start new Game" Command="{Binding StartNewGameCommand}" />
+                    <Button Content="New Match" Command="{Binding StartNewGameCommand}" />
                 </StackPanel>
             </materialDesign:Card>
         </DockPanel>
