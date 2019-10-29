@@ -10,5 +10,9 @@ namespace SimpleDartboard.PAL.ViewModels
         IPlayerScoreBoardViewModel OpponentPlayer { get; set; }
         IDartBoardScoreControlWrapperViewModel DartBoardScoreControl { get; set; }
         IDartGameControlViewModel DartGameControlViewModel { get; set; }
+        int LeftPlayerSelectedAnimationIndex { get; set; }
+        int RightPlayerSelectedAnimationIndex { get; set; }
+
+        IActionTokenViewModel SelectedPlayerToken { get; set; }
     }
 }

@@ -16,6 +16,10 @@
                       DataType="{x:Type viewmodels:DartGameControlViewModel}">
             <local:DartGameControlView DataContext="{Binding}" />
         </DataTemplate>
+        <DataTemplate x:Name="actionTokenViewTemplate"
+                      DataType="{x:Type viewmodels:ActionTokenViewModel}">
+            <local:ActionTokenView DataContext="{Binding}" />
+        </DataTemplate>
     </UserControl.Resources>
     <Grid Margin="5,5,5,5">
         <DockPanel>
@@ -26,12 +30,40 @@
                         <DockPanel>
                             <DockPanel HorizontalAlignment="Left">
                                 <materialDesign:Card Padding="16" Margin="8">
-                                    <ContentControl Content="{Binding LeftPlayer}" />
+                                    <DockPanel>
+                                        <DockPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                                            <materialDesign:Transitioner
+                                                SelectedIndex="{Binding LeftPlayerSelectedAnimationIndex}"
+                                                AutoApplyTransitionOrigins="True">
+                                                <materialDesign:TransitionerSlide
+                                                    OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight}">
+                                                    <ContentPresenter Content="{Binding SelectedPlayerToken}" />
+                                                </materialDesign:TransitionerSlide>
+                                            </materialDesign:Transitioner>
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <ContentControl Content="{Binding LeftPlayer}" />
+                                        </DockPanel>
+                                    </DockPanel>
                                 </materialDesign:Card>
                             </DockPanel>
                             <DockPanel HorizontalAlignment="Right">
                                 <materialDesign:Card Padding="16" Margin="8">
-                                    <ContentControl Content="{Binding RightPlayer}" />
+                                    <DockPanel>
+                                        <DockPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                                            <materialDesign:Transitioner
+                                                SelectedIndex="{Binding RightPlayerSelectedAnimationIndex}"
+                                                AutoApplyTransitionOrigins="True">
+                                                <materialDesign:TransitionerSlide
+                                                    OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft}">
+                                                    <ContentPresenter Content="{Binding SelectedPlayerToken}" />
+                                                </materialDesign:TransitionerSlide>
+                                            </materialDesign:Transitioner>
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <ContentControl Content="{Binding RightPlayer}" />
+                                        </DockPanel>
+                                    </DockPanel>
                                 </materialDesign:Card>
                             </DockPanel>
                         </DockPanel>

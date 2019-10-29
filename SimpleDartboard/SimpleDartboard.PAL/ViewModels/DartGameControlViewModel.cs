@@ -48,7 +48,7 @@ namespace SimpleDartboard.PAL.ViewModels
 
         private void ResetGame()
         {
-            Mediator.NotifyColleagues(MessageType.InitializeNewGame, null);
+            Mediator.NotifyColleagues(MessageType.StartGame, _dartGameSetting);
         }
     }
 }

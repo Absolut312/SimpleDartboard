@@ -1,3 +1,4 @@
+using System.Windows.Media;
 using SimpleDartboard.PAL.Core;
 using SimpleDartboard.PAL.Models;
 
@@ -73,13 +74,52 @@ namespace SimpleDartboard.PAL.ViewModels
             }
         }
 
+        public int LeftPlayerSelectedAnimationIndex
+        {
+            get => _leftPlayerSelectedAnimationIndex;
+            set
+            {
+                _leftPlayerSelectedAnimationIndex = value;
+                OnPropertyChanged("LeftPlayerSelectedAnimationIndex");
+            }
+        }
+
+        public int RightPlayerSelectedAnimationIndex
+        {
+            get => _rightPlayerSelectedAnimationIndex;
+            set
+            {
+                _rightPlayerSelectedAnimationIndex = value;
+                OnPropertyChanged("RightPlayerSelectedAnimationIndex");
+            }
+        }
+
+        public IActionTokenViewModel SelectedPlayerToken
+        {
+            get => _selectedPlayerToken;
+            set
+            {
+                _selectedPlayerToken = value;
+                OnPropertyChanged("SelectedPlayerToken");
+            }
+        }
+
         private IDartGameControlViewModel _dartGameControlViewModel;
+        private IActionTokenViewModel _selectedPlayerToken;
+        private int _rightPlayerSelectedAnimationIndex;
+        private int _leftPlayerSelectedAnimationIndex;
 
         public DartGameViewModel(IPlayerScoreBoardViewModel playerOne,
             IPlayerScoreBoardViewModel playerTwo,
             IDartBoardScoreControlWrapperViewModel dartBoardScoreControlViewModel,
             IDartGameControlViewModel dartGameControlViewModel)
         {
+            var selectedPlayerToken = new ActionTokenViewModel();
+            selectedPlayerToken.TokenColor = Brushes.Red;
+            selectedPlayerToken.Size = 48;
+            SelectedPlayerToken = selectedPlayerToken;
+            LeftPlayerSelectedAnimationIndex = UnvisbileContent;
+            RightPlayerSelectedAnimationIndex = UnvisbileContent;
             _dartGameSetting = new DartGameSetting();
             LeftPlayer = playerOne;
             RightPlayer = playerTwo;
@@ -89,6 +129,9 @@ namespace SimpleDartboard.PAL.ViewModels
             OpponentPlayer = RightPlayer;
             RegisterMediatorMessages();
         }
+
+        private static int UnvisbileContent => -1;
+        private static int VisibleSelectedTokenIndex => 0;
 
         private void RegisterMediatorMessages()
         {
@@ -114,6 +157,8 @@ namespace SimpleDartboard.PAL.ViewModels
             _playerTwo.Name = dartGameSetting.PlayerTwo.Name;
             _playerTwo.CurrentScore = dartGameSetting.PlayerTwo.Score;
             InitializePlayerLegs(_playerTwo, dartGameSetting.PlayerTwo.LegAmount);
+            LeftPlayerSelectedAnimationIndex = VisibleSelectedTokenIndex;
+            RightPlayerSelectedAnimationIndex = UnvisbileContent;
             ClearActionTokens();
         }
 
@@ -142,6 +187,8 @@ namespace SimpleDartboard.PAL.ViewModels
             var currentSelectedPlayer = SelectedPlayer;
             SelectedPlayer = OpponentPlayer;
             OpponentPlayer = currentSelectedPlayer;
+            LeftPlayerSelectedAnimationIndex = LeftPlayerSelectedAnimationIndex == UnvisbileContent ?VisibleSelectedTokenIndex: UnvisbileContent;
+            RightPlayerSelectedAnimationIndex = RightPlayerSelectedAnimationIndex == UnvisbileContent ?VisibleSelectedTokenIndex: UnvisbileContent;
             ClearActionTokens();
         }
 
