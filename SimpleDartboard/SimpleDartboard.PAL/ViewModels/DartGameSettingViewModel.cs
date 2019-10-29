@@ -54,6 +54,26 @@ namespace SimpleDartboard.PAL.ViewModels
             }
         }
 
+        public int PlayerOneLegAmount
+        {
+            get { return _dartGameSetting.PlayerOne.LegAmount; }
+            set
+            {
+                _dartGameSetting.PlayerOne.LegAmount = value;
+                OnPropertyChanged("PlayerOneLegAmount");
+            }
+        }
+
+        public int PlayerTwoLegAmount
+        {
+            get { return _dartGameSetting.PlayerTwo.LegAmount; }
+            set
+            {
+                _dartGameSetting.PlayerTwo.LegAmount = value;
+                OnPropertyChanged("PlayerTwoLegAmount");
+            }
+        }
+
         public DartGameSettingViewModel(IDartGameSettingLoadService dartGameSettingLoadService,
             IDartGameSettingSaveService dartGameSettingSaveService)
         {

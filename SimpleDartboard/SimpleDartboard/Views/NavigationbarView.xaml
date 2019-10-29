@@ -9,7 +9,7 @@
     <Grid>
         <DockPanel>
             <StackPanel>
-                <Button Content="New Game" Command="{Binding StartNewGameCommand}" />
+                <Button Content="New Game" Command="{Binding StartNewGameCommand}" FontSize="20" Height="36" />
             </StackPanel>
         </DockPanel>
     </Grid>

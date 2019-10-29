@@ -21,13 +21,15 @@ namespace SimpleDartboard.PAL.ViewModels
             }
         }
 
-        public IPlayerScoreBoardViewModel RightPlayer { 
+        public IPlayerScoreBoardViewModel RightPlayer
+        {
             get { return _playerTwo; }
             set
             {
                 _playerTwo = value;
                 OnPropertyChanged("RightPlayer");
-            } }
+            }
+        }
 
         public IPlayerScoreBoardViewModel SelectedPlayer
         {
@@ -108,16 +110,30 @@ namespace SimpleDartboard.PAL.ViewModels
             _dartGameSetting = dartGameSetting;
             _playerOne.Name = dartGameSetting.PlayerOne.Name;
             _playerOne.CurrentScore = dartGameSetting.PlayerOne.Score;
+            InitializePlayerLegs(_playerOne, dartGameSetting.PlayerOne.LegAmount);
             _playerTwo.Name = dartGameSetting.PlayerTwo.Name;
             _playerTwo.CurrentScore = dartGameSetting.PlayerTwo.Score;
+            InitializePlayerLegs(_playerTwo, dartGameSetting.PlayerTwo.LegAmount);
             ClearActionTokens();
+        }
+
+        private void InitializePlayerLegs(IPlayerScoreBoardViewModel player, int legAmount)
+        {
+            for (var i = 0; i < legAmount; i++)
+            {
+                player.AddLeg();
+            }
         }
 
         private void ReduceScoreForSelectedPlayer(object scoreActionObject)
         {
             if (!(scoreActionObject is ScoreAction scoreAction)) return;
             SelectedPlayer.AddScoreAction(scoreAction);
-            if (SelectedPlayer.CurrentScore == 0) Mediator.NotifyColleagues(MessageType.ShowWinner, SelectedPlayer);
+            if (SelectedPlayer.CurrentScore == 0)
+            {
+                SelectedPlayer.AddLeg();
+                Mediator.NotifyColleagues(MessageType.ShowWinner, SelectedPlayer);
+            }
         }
 
         private void SwitchSelectedPlayer(object obj)

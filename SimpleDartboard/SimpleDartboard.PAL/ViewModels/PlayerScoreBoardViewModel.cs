@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using SimpleDartboard.PAL.Core;
 using SimpleDartboard.PAL.Models;
 
@@ -12,6 +13,7 @@ namespace SimpleDartboard.PAL.ViewModels
         {
             AverageScoreActionsTotal = averageScoreActionsTotal;
             AverageScoreActionsPerRound = averageScoreActionsPerRound;
+            Legs = new ObservableCollection<ActionTokenViewModel>();
             Mediator.Register(MessageType.StartGame, ClearScoreActions);
         }
 
@@ -21,6 +23,15 @@ namespace SimpleDartboard.PAL.ViewModels
             AverageScoreActionsPerRound.Reset();
         }
 
+
+        public ObservableCollection<ActionTokenViewModel> Legs { get; }
+
+        public void AddLeg()
+        {
+            var actionTokenViewModel = new ActionTokenViewModel();
+            actionTokenViewModel.Size = 20;
+            Legs.Add(actionTokenViewModel);
+        }
 
         public string Name
         {

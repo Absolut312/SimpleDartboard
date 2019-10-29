@@ -10,5 +10,8 @@ namespace SimpleDartboard.PAL.ViewModels
         int PlayerOneScore { get; set; }
         int PlayerTwoScore { get; set; }
         
+        int PlayerOneLegAmount { get; set; }
+        int PlayerTwoLegAmount { get; set; }
+        
     }
 }

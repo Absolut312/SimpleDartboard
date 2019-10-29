@@ -13,6 +13,13 @@ namespace SimpleDartboard.PAL.ViewModels
         {
             _navigationbarViewModel = navigationbarViewModel;
             ToggleMenuButtonCommand = new RelayCommand(ToggleMenuButton);
+            Mediator.Register(MessageType.HideNavigationbar, HideNavigationbar);
+        }
+
+        private void HideNavigationbar(object obj)
+        {
+            IsMenuButtonVisible = false;
+            ToggleMenuButton();
         }
 
         private void ToggleMenuButton()

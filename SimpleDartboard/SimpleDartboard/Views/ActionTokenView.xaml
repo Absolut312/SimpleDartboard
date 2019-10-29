@@ -8,7 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <DockPanel>
-            <Ellipse Width="7" Height="7" Fill="{Binding TokenColor}" />
+            <Ellipse Width="{Binding Size}" Height="{Binding Size}" Fill="{Binding TokenColor}" />
         </DockPanel>
     </Grid>
 </UserControl>

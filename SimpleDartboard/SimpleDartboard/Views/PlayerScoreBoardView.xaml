@@ -1,38 +1,58 @@
 <UserControl x:Class="SimpleDartboard.Views.PlayerScoreBoardView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewmodels="clr-namespace:SimpleDartboard.PAL.ViewModels;assembly=SimpleDartboard.PAL"
+             xmlns:views="clr-namespace:SimpleDartboard.Views">
+    <UserControl.Resources>
+        <DataTemplate x:Name="actionTokenViewTemplate"
+                      DataType="{x:Type viewmodels:ActionTokenViewModel}">
+            <views:ActionTokenView DataContext="{Binding}" />
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid>
         <DockPanel>
-            <StackPanel Orientation="Vertical">
-                <materialDesign:Card Padding="16" Margin="8">
-                    <StackPanel>
-                        <Label Content="{Binding Name}" FontSize="80" />
-                        <DockPanel>
-                            <DockPanel HorizontalAlignment="Left">
-                                <Label Content="{Binding CurrentScore}" FontSize="100" FontWeight="Bold" />
-                            </DockPanel>
-                            <DockPanel HorizontalAlignment="Stretch" Margin="64,0,0,0">
-                                <DockPanel HorizontalAlignment="Left">
-                                    <Label Content="Average:"
-                                           FontSize="45" FontWeight="Bold" />
-                                </DockPanel>
-                                <DockPanel HorizontalAlignment="Center">
-                                    <Label Content="{Binding AverageScoreActionsPerRound.CommaSeparatedScoreActions}"
-                                           FontSize="45" FontWeight="Bold" />
-                                </DockPanel>
-                                <DockPanel HorizontalAlignment="Right">
-                                    <Label Content="{Binding AverageScoreActionsPerRound.AverageScoreActions}"
-                                           FontSize="45" FontWeight="Bold" />
-                                </DockPanel>
-                            </DockPanel>
+
+            <StackPanel>
+                <DockPanel HorizontalAlignment="Right">
+                    <ItemsControl ItemsSource="{Binding Legs}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" ItemWidth="24" ItemHeight="24"
+                                           Width="240" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl Content="{Binding}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </DockPanel>
+                <Label Content="{Binding Name}" FontSize="80" />
+                <DockPanel>
+                    <DockPanel HorizontalAlignment="Left">
+                        <Label Content="{Binding CurrentScore}" FontSize="100" FontWeight="Bold" />
+                    </DockPanel>
+                    <DockPanel HorizontalAlignment="Stretch" Margin="64,0,0,0">
+                        <DockPanel HorizontalAlignment="Left">
+                            <Label Content="Average Round:"
+                                   FontSize="45" FontWeight="Bold" />
                         </DockPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Average Score:" FontSize="45" />
-                            <Label Content="{Binding AverageScoreActionsTotal.AverageScoreActions}" FontSize="45" />
-                        </StackPanel>
-                    </StackPanel>
-                </materialDesign:Card>
+                        <DockPanel HorizontalAlignment="Center">
+                            <Label Content="{Binding AverageScoreActionsPerRound.CommaSeparatedScoreActions}"
+                                   FontSize="45" FontWeight="Bold" />
+                        </DockPanel>
+                        <DockPanel HorizontalAlignment="Right">
+                            <Label Content="{Binding AverageScoreActionsPerRound.AverageScoreActions}"
+                                   FontSize="45" FontWeight="Bold" />
+                        </DockPanel>
+                    </DockPanel>
+                </DockPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Average Total:" FontSize="45" />
+                    <Label Content="{Binding AverageScoreActionsTotal.AverageScoreActions}" FontSize="45" />
+                </StackPanel>
             </StackPanel>
         </DockPanel>
     </Grid>

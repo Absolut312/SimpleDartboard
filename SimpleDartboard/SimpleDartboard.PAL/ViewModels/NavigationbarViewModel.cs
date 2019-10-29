@@ -47,6 +47,7 @@ namespace SimpleDartboard.PAL.ViewModels
         private void StartNewGame()
         {
             Mediator.NotifyColleagues(MessageType.ChangeMainViewContent, _dartGameSettingViewModel);
+            Mediator.NotifyColleagues(MessageType.HideNavigationbar, null);
         }
 
         public ICommand ChangeToDartGameCommand { get; set; }

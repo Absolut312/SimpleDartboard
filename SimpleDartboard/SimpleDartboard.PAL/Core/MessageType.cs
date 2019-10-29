@@ -13,6 +13,7 @@ namespace SimpleDartboard.PAL.Core
         InitializeNewGame,
         ShowWinner,
         ClearActionTokens,
-        UpdateNavigationbar
+        UpdateNavigationbar,
+        HideNavigationbar
     }
 }
