@@ -6,5 +6,6 @@ namespace SimpleDartboard.PAL.ViewModels
     {
         ICommand ChangeToDartGameCommand { get; set; }
         ICommand StartNewGameCommand { get; set; }
+        ICommand ResumeLastGameCommand { get; set; }
     }
 }

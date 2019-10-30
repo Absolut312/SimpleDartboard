@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using SimpleDartboard.PAL.Core;
 using SimpleDartboard.PAL.Models;
@@ -73,9 +74,15 @@ namespace SimpleDartboard.PAL.ViewModels
             OnPropertyChanged("CurrentScore");
         }
 
+        public List<ScoreAction> GetScoreActions()
+        {
+            return AverageScoreActionsTotal.GetAllScoreActions();
+        }
+
         public void Checkout()
         {
             var currentRoundScoreAction = AverageScoreActionsPerRound.CheckoutScoreActions();
+            if(currentRoundScoreAction == null) return;
             AverageScoreActionsTotal.AddScoreAction(currentRoundScoreAction);
             OnPropertyChanged("CurrentScore");
         }
@@ -83,6 +90,13 @@ namespace SimpleDartboard.PAL.ViewModels
         public void UndoLastScoreAction()
         {
             AverageScoreActionsPerRound.UndoLastScoreAction();
+            var scoreActionsToCheck = AverageScoreActionsPerRound.GetAllScoreActions();
+            AverageScoreActionsPerRound.Reset();
+            foreach (var scoreAction in scoreActionsToCheck)
+            {
+                AddScoreAction(new ScoreAction{Multiplier = scoreAction.Multiplier, Score = scoreAction.Score});
+            }
+            
             OnPropertyChanged("CurrentScore");
         }
 

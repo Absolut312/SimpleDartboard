@@ -34,24 +34,20 @@
                     <DockPanel HorizontalAlignment="Left">
                         <Label Content="{Binding CurrentScore}" FontSize="100" FontWeight="Bold" />
                     </DockPanel>
-                    <DockPanel HorizontalAlignment="Stretch" Margin="64,0,0,0">
-                        <DockPanel HorizontalAlignment="Left">
-                            <Label Content="Average Round:"
-                                   FontSize="45" FontWeight="Bold" />
-                        </DockPanel>
+                    <DockPanel HorizontalAlignment="Stretch" Margin="64,0,0,0" MinWidth="400">
                         <DockPanel HorizontalAlignment="Center">
                             <Label Content="{Binding AverageScoreActionsPerRound.CommaSeparatedScoreActions}"
                                    FontSize="45" FontWeight="Bold" />
                         </DockPanel>
                         <DockPanel HorizontalAlignment="Right">
-                            <Label Content="{Binding AverageScoreActionsPerRound.AverageScoreActions}"
+                            <Label Content="{Binding AverageScoreActionsPerRound.ScoreActionSum}"
                                    FontSize="45" FontWeight="Bold" />
                         </DockPanel>
                     </DockPanel>
                 </DockPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Average Total:" FontSize="45" />
-                    <Label Content="{Binding AverageScoreActionsTotal.AverageScoreActions}" FontSize="45" />
+                    <Label Content="Average:" FontSize="45"  FontWeight="Bold" />
+                    <Label Content="{Binding AverageScoreActionsTotal.AverageScoreActions}" FontSize="45" FontWeight="Bold" />
                 </StackPanel>
             </StackPanel>
         </DockPanel>

@@ -4,6 +4,6 @@ namespace SimpleDartBoard.BLL.UseCases.DartGameSettings.Load
 {
     public interface IDartGameSettingLoadRepository
     {
-        DartGameSetting Load();
+        DartGameSetting Load(string fileName);
     }
 }

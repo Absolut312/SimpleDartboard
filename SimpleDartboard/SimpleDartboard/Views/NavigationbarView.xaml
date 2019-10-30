@@ -9,7 +9,8 @@
     <Grid>
         <DockPanel>
             <StackPanel>
-                <Button Content="New Game" Command="{Binding StartNewGameCommand}" FontSize="20" Height="36" />
+                <Button Content="New Game" Command="{Binding StartNewGameCommand}" Margin="5" FontSize="20" Height="36" />
+                <Button Content="Resume last Game" Command="{Binding ResumeLastGameCommand}" Margin="5" FontSize="20" Height="36" />
             </StackPanel>
         </DockPanel>
     </Grid>

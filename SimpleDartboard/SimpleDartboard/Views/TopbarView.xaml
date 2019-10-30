@@ -13,6 +13,13 @@
                                       Mode="PrimaryMid" DockPanel.Dock="Top">
                 <DockPanel>
                     <ToggleButton Style="{DynamicResource  MaterialDesignHamburgerToggleButton}" IsChecked="{Binding IsMenuButtonVisible}" Command="{Binding ToggleMenuButtonCommand}"/>
+                    <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+                        <StackPanel>
+                            <Button Content="Resume last Game" Command="{Binding ResumeLastGameCommand}"/>
+                            <Separator/>
+                            <Button Content="Quit" Command="{Binding ShutdownCommand}"/>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">SimpleDartboard</TextBlock>
                 </DockPanel>
             </materialDesign:ColorZone>

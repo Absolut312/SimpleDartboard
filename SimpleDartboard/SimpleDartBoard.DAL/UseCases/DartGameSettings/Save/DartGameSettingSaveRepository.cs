@@ -6,29 +6,29 @@ using SimpleDartboard.PAL.Models;
 
 namespace SimpleDartBoard.DAL.UseCases.DartGameSettings.Save
 {
-    public class DartGameSettingSaveRepository: IDartGameSettingSaveRepository
+    public class DartGameSettingSaveRepository : IDartGameSettingSaveRepository
     {
-        public void Save(DartGameSetting dartGameSetting)
+        public void Save(DartGameSetting dartGameSetting, string fileName)
         {
             var serializedDartGameSetting = JsonConvert.SerializeObject(dartGameSetting);
-            if (!File.Exists(DartGameSettingJsonFileName))
+            if (!File.Exists(DartGameSettingDirectory + fileName))
             {
-                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                                      "/SimpleDartboard"))
+                if (!Directory.Exists(DartGameSettingDirectory))
                 {
-                    Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                                              "/SimpleDartboard");
+                    Directory.CreateDirectory(DartGameSettingDirectory);
                 }
-                File.Create(DartGameSettingJsonFileName).Close();
-                
-                File.WriteAllText(DartGameSettingJsonFileName, serializedDartGameSetting);
+
+                File.Create(DartGameSettingDirectory + fileName).Close();
+
+                File.WriteAllText(DartGameSettingDirectory + fileName, serializedDartGameSetting);
             }
             else
             {
-                File.WriteAllText(DartGameSettingJsonFileName, serializedDartGameSetting);
+                File.WriteAllText(DartGameSettingDirectory + fileName, serializedDartGameSetting);
             }
         }
 
-        public static string DartGameSettingJsonFileName =>  Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+"/SimpleDartboard/DartGameSetting.json";
+        public static string DartGameSettingDirectory =>
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/SimpleDartboard/";
     }
 }

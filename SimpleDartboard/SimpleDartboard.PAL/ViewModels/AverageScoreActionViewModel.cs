@@ -19,6 +19,7 @@ namespace SimpleDartboard.PAL.ViewModels
                 Multiplier = 1,
                 Score = GetScoreActionsSum()
             };
+            if (_scoreActions.Count == 0) scoreActionToCheckout = null;
             Reset();
             return scoreActionToCheckout;
         }
@@ -32,6 +33,7 @@ namespace SimpleDartboard.PAL.ViewModels
             }
             Mediator.NotifyColleagues(MessageType.DisableUndoLastScoreAction, false);
             OnPropertyChanged("AverageScoreActions");
+            OnPropertyChanged("ScoreActionSum");
             OnPropertyChanged("CommaSeparatedScoreActions");
         }
 
@@ -45,10 +47,15 @@ namespace SimpleDartboard.PAL.ViewModels
             Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, true);
             _scoreActions.RemoveAt(_scoreActions.Count - 1);
             Mediator.NotifyColleagues(MessageType.DisableUndoLastScoreAction, _scoreActions.Count == 0);
-            //TODO: Recalculate Current valid Scoreactions
             
             OnPropertyChanged("AverageScoreActions");
+            OnPropertyChanged("ScoreActionSum");
             OnPropertyChanged("CommaSeparatedScoreActions");
+        }
+
+        public List<ScoreAction> GetAllScoreActions()
+        {
+            return _scoreActions.ToList();
         }
 
         public void Reset()
@@ -57,6 +64,7 @@ namespace SimpleDartboard.PAL.ViewModels
             Mediator.NotifyColleagues(MessageType.DisableUndoLastScoreAction, true);
             OnPropertyChanged("AverageScoreActions");
             OnPropertyChanged("CommaSeparatedScoreActions");
+            OnPropertyChanged("ScoreActionSum");
         }
 
         public void RevertAllScoreActions()
@@ -67,7 +75,7 @@ namespace SimpleDartboard.PAL.ViewModels
 
         public void RevertLastScoreActions()
         {
-            _scoreActions[_scoreActions.Count].IsReverted = true;
+            _scoreActions[_scoreActions.Count-1].IsReverted = true;
             OnPropertyChanged("AverageScoreActions");
         }
 
@@ -76,6 +84,14 @@ namespace SimpleDartboard.PAL.ViewModels
         public int AverageScoreActions
         {
             get { return _scoreActions.Count != 0 ? GetScoreActionsSum() / _scoreActions.Count : 0; }
+        }
+
+        public int ScoreActionSum
+        {
+            get
+            {
+                return GetScoreActionsSum();
+            }
         }
 
         public string CommaSeparatedScoreActions

@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using System.Windows.Media;
 using SimpleDartboard.PAL.Core;
 using SimpleDartboard.PAL.Models;
+using SimpleDartboard.PAL.UseCases.DartGameSettings.Save;
 
 namespace SimpleDartboard.PAL.ViewModels
 {
@@ -11,6 +13,7 @@ namespace SimpleDartboard.PAL.ViewModels
         private IPlayerScoreBoardViewModel _playerTwo;
         private IPlayerScoreBoardViewModel _selectedPlayer;
         private IPlayerScoreBoardViewModel _opponentPlayer;
+        private readonly IDartGameSettingSaveService _dartGameSettingSaveService;
 
         public IPlayerScoreBoardViewModel LeftPlayer
         {
@@ -112,7 +115,7 @@ namespace SimpleDartboard.PAL.ViewModels
         public DartGameViewModel(IPlayerScoreBoardViewModel playerOne,
             IPlayerScoreBoardViewModel playerTwo,
             IDartBoardScoreControlWrapperViewModel dartBoardScoreControlViewModel,
-            IDartGameControlViewModel dartGameControlViewModel)
+            IDartGameControlViewModel dartGameControlViewModel, IDartGameSettingSaveService dartGameSettingSaveService)
         {
             var selectedPlayerToken = new ActionTokenViewModel();
             selectedPlayerToken.TokenColor = Brushes.Red;
@@ -125,6 +128,7 @@ namespace SimpleDartboard.PAL.ViewModels
             RightPlayer = playerTwo;
             DartBoardScoreControl = dartBoardScoreControlViewModel;
             DartGameControlViewModel = dartGameControlViewModel;
+            _dartGameSettingSaveService = dartGameSettingSaveService;
             SelectedPlayer = LeftPlayer;
             OpponentPlayer = RightPlayer;
             RegisterMediatorMessages();
@@ -153,13 +157,36 @@ namespace SimpleDartboard.PAL.ViewModels
             _dartGameSetting = dartGameSetting;
             _playerOne.Name = dartGameSetting.PlayerOne.Name;
             _playerOne.CurrentScore = dartGameSetting.PlayerOne.Score;
+            InitializePlayerAverageScoreActions(_playerOne, dartGameSetting.PlayerOne.ScoreActions);
             InitializePlayerLegs(_playerOne, dartGameSetting.PlayerOne.LegAmount);
             _playerTwo.Name = dartGameSetting.PlayerTwo.Name;
             _playerTwo.CurrentScore = dartGameSetting.PlayerTwo.Score;
+            InitializePlayerAverageScoreActions(_playerTwo, dartGameSetting.PlayerTwo.ScoreActions);
             InitializePlayerLegs(_playerTwo, dartGameSetting.PlayerTwo.LegAmount);
-            LeftPlayerSelectedAnimationIndex = VisibleSelectedTokenIndex;
-            RightPlayerSelectedAnimationIndex = UnvisbileContent;
+            if (_dartGameSetting.PlayerOne.IsFirstSelected)
+            {
+                SelectedPlayer = LeftPlayer;
+                OpponentPlayer = RightPlayer;
+                LeftPlayerSelectedAnimationIndex = VisibleSelectedTokenIndex;
+                RightPlayerSelectedAnimationIndex = UnvisbileContent;
+            }
+            else
+            {
+                SelectedPlayer = RightPlayer;
+                OpponentPlayer = LeftPlayer;
+                LeftPlayerSelectedAnimationIndex = UnvisbileContent;
+                RightPlayerSelectedAnimationIndex = VisibleSelectedTokenIndex;
+            }
+
             ClearActionTokens();
+        }
+
+        private void InitializePlayerAverageScoreActions(IPlayerScoreBoardViewModel player, List<ScoreAction> scoreActions)
+        {
+            foreach (var scoreAction in scoreActions)
+            {
+                player.AverageScoreActionsTotal.AddScoreAction(scoreAction);
+            }
         }
 
         private void InitializePlayerLegs(IPlayerScoreBoardViewModel player, int legAmount)
@@ -175,22 +202,40 @@ namespace SimpleDartboard.PAL.ViewModels
         {
             if (!(scoreActionObject is ScoreAction scoreAction)) return;
             SelectedPlayer.AddScoreAction(scoreAction);
-            if (SelectedPlayer.CurrentScore == 0)
-            {
-                SelectedPlayer.AddLeg();
-                Mediator.NotifyColleagues(MessageType.ShowWinner, SelectedPlayer);
-            }
         }
 
         private void SwitchSelectedPlayer(object obj)
         {
             SelectedPlayer.Checkout();
+            if (SelectedPlayer.CurrentScore == 0)
+            {
+                SelectedPlayer.AddLeg();
+                Mediator.NotifyColleagues(MessageType.ShowWinner, SelectedPlayer);
+                return;
+            }
+
             var currentSelectedPlayer = SelectedPlayer;
             SelectedPlayer = OpponentPlayer;
             OpponentPlayer = currentSelectedPlayer;
-            LeftPlayerSelectedAnimationIndex = LeftPlayerSelectedAnimationIndex == UnvisbileContent ?VisibleSelectedTokenIndex: UnvisbileContent;
-            RightPlayerSelectedAnimationIndex = RightPlayerSelectedAnimationIndex == UnvisbileContent ?VisibleSelectedTokenIndex: UnvisbileContent;
+            LeftPlayerSelectedAnimationIndex = LeftPlayerSelectedAnimationIndex == UnvisbileContent
+                ? VisibleSelectedTokenIndex
+                : UnvisbileContent;
+            RightPlayerSelectedAnimationIndex = RightPlayerSelectedAnimationIndex == UnvisbileContent
+                ? VisibleSelectedTokenIndex
+                : UnvisbileContent;
             ClearActionTokens();
+            UpdateCurrentGameStateInGameSetting();
+            _dartGameSettingSaveService.Save(_dartGameSetting, "LastGameState.json");
+        }
+
+        private void UpdateCurrentGameStateInGameSetting()
+        {
+            _dartGameSetting.PlayerOne.LegAmount = LeftPlayer.Legs.Count;
+            _dartGameSetting.PlayerOne.ScoreActions = LeftPlayer.GetScoreActions();
+            _dartGameSetting.PlayerOne.IsFirstSelected = LeftPlayerSelectedAnimationIndex == VisibleSelectedTokenIndex;
+            _dartGameSetting.PlayerTwo.LegAmount = RightPlayer.Legs.Count;
+            _dartGameSetting.PlayerTwo.ScoreActions = RightPlayer.GetScoreActions();
+            _dartGameSetting.PlayerTwo.IsFirstSelected = RightPlayerSelectedAnimationIndex == VisibleSelectedTokenIndex;
         }
 
         private void ClearActionTokens()

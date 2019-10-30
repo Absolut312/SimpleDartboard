@@ -12,9 +12,9 @@ namespace SimpleDartBoard.BLL.UseCases.DartGameSettings.Save
             _dartGameSettingSaveRepository = dartGameSettingSaveRepository;
         }
 
-        public void Save(DartGameSetting dartGameSetting)
+        public void Save(DartGameSetting dartGameSetting, string fileName)
         {
-            _dartGameSettingSaveRepository.Save(dartGameSetting);
+            _dartGameSettingSaveRepository.Save(dartGameSetting, fileName);
         }
     }
 }

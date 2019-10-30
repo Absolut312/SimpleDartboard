@@ -6,5 +6,7 @@ namespace SimpleDartboard.PAL.ViewModels
     {
         bool IsMenuButtonVisible { get; set; }
         ICommand ToggleMenuButtonCommand { get; set; }
+        ICommand ShutdownCommand { get; set; }
+        ICommand ResumeLastGameCommand { get; set; }
     }
 }

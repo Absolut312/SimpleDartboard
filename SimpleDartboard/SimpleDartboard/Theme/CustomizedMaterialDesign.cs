@@ -6,7 +6,7 @@ using MaterialDesignThemes.Wpf;
 
 namespace SimpleDartboard.Theme
 {
-    public class CustomizedMaterialDesign : MaterialDesignDarkTheme, ITheme
+    public class CustomizedMaterialDesign : MaterialDesignLightTheme, ITheme
     {
         private static readonly Color BaseColor = Colors.Yellow;
 

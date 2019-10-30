@@ -4,6 +4,6 @@ namespace SimpleDartBoard.BLL.UseCases.DartGameSettings.Save
 {
     public interface IDartGameSettingSaveRepository
     {
-        void Save(DartGameSetting dartGameSetting);
+        void Save(DartGameSetting dartGameSetting, string fileName);
     }
 }

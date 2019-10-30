@@ -40,6 +40,7 @@
                                          MinWidth="50"
                                          FontSize="40" />
                             </StackPanel>
+                            <CheckBox IsChecked="{Binding PlayerOneIsFirstSelected}" Style="{DynamicResource MaterialDesignCheckBox}" FontSize="40">First selected Player</CheckBox>
                         </StackPanel>
                     </materialDesign:Card>
                     <materialDesign:Card Padding="16" Margin="8">
@@ -72,6 +73,7 @@
                                          MinWidth="50"
                                          FontSize="40" />
                             </StackPanel>
+                            <CheckBox IsChecked="{Binding PlayerTwoIsFirstSelected}" FontSize="40" Style="{DynamicResource MaterialDesignCheckBox}">First selected Player</CheckBox>
                         </StackPanel>
                     </materialDesign:Card>
                 <DockPanel HorizontalAlignment="Right">

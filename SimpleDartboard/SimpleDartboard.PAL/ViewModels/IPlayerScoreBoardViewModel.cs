@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using SimpleDartboard.PAL.Models;
 
@@ -10,6 +11,7 @@ namespace SimpleDartboard.PAL.ViewModels
         string Name { get; set; }
         int CurrentScore { get; set; }
         void AddScoreAction(ScoreAction scoreAction);
+        List<ScoreAction> GetScoreActions();
         void Checkout();
         void UndoLastScoreAction();
         IAverageScoreActionViewModel AverageScoreActionsPerRound { get; set; }

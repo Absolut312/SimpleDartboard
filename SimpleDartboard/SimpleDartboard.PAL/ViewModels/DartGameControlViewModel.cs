@@ -48,6 +48,8 @@ namespace SimpleDartboard.PAL.ViewModels
 
         private void ResetGame()
         {
+            _dartGameSetting.PlayerOne.ScoreActions.Clear();
+            _dartGameSetting.PlayerTwo.ScoreActions.Clear();
             Mediator.NotifyColleagues(MessageType.StartGame, _dartGameSetting);
         }
     }

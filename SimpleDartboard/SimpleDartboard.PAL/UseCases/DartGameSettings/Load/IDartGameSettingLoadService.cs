@@ -4,6 +4,6 @@ namespace SimpleDartboard.PAL.UseCases.DartGameSettings.Load
 {
     public interface IDartGameSettingLoadService
     {
-        DartGameSetting Load();
+        DartGameSetting Load(string fileName);
     }
 }

@@ -13,5 +13,8 @@ namespace SimpleDartboard.PAL.ViewModels
         int PlayerOneLegAmount { get; set; }
         int PlayerTwoLegAmount { get; set; }
         
+        bool PlayerOneIsFirstSelected { get; set; }
+        bool PlayerTwoIsFirstSelected { get; set; }
+        
     }
 }

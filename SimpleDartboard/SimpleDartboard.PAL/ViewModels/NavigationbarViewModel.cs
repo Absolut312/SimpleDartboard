@@ -1,6 +1,7 @@
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using SimpleDartboard.PAL.Core;
+using SimpleDartboard.PAL.UseCases.DartGameSettings.Load;
 
 namespace SimpleDartboard.PAL.ViewModels
 {
@@ -9,19 +10,30 @@ namespace SimpleDartboard.PAL.ViewModels
         private IDartGameSettingViewModel _dartGameSettingViewModel;
         private IDartGameViewModel _dartGameViewModel;
         private IDartGameWinnerViewModel _dartGameWinnerViewModel;
+        private readonly IDartGameSettingLoadService _dartGameSettingLoadService;
 
         public NavigationbarViewModel(IDartGameViewModel dartGameViewModel,
             IDartGameSettingViewModel dartGameSettingViewModel,
-            IDartGameWinnerViewModel dartGameWinnerViewModel)
+            IDartGameWinnerViewModel dartGameWinnerViewModel, 
+            IDartGameSettingLoadService dartGameSettingLoadService)
         {
             _dartGameViewModel = dartGameViewModel;
             _dartGameSettingViewModel = dartGameSettingViewModel;
             _dartGameWinnerViewModel = dartGameWinnerViewModel;
+            _dartGameSettingLoadService = dartGameSettingLoadService;
             ChangeToDartGameCommand = new RelayCommand(ChangeToDartGame);
             StartNewGameCommand = new RelayCommand(StartNewGame);
+            ResumeLastGameCommand = new RelayCommand(ResumeLastGame);
             Mediator.Register(MessageType.StartGame, StartGame);
             Mediator.Register(MessageType.InitializeNewGame, InitializeNewGame);
             Mediator.Register(MessageType.ShowWinner, NavigateToShowWinnerView);
+        }
+
+        private void ResumeLastGame()
+        {
+            var dartGameSetting = _dartGameSettingLoadService.Load("LastGameState.json");
+            Mediator.NotifyColleagues(MessageType.StartGame, dartGameSetting);
+            Mediator.NotifyColleagues(MessageType.HideNavigationbar, null);
         }
 
         private void NavigateToShowWinnerView(object obj)
@@ -52,5 +64,6 @@ namespace SimpleDartboard.PAL.ViewModels
 
         public ICommand ChangeToDartGameCommand { get; set; }
         public ICommand StartNewGameCommand { get; set; }
+        public ICommand ResumeLastGameCommand { get; set; }
     }
 }

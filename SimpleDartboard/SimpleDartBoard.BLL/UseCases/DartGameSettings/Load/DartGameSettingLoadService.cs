@@ -15,9 +15,10 @@ namespace SimpleDartBoard.BLL.UseCases.DartGameSettings.Load
             _dartGameSettingLoadDefaultsRepository = dartGameSettingLoadDefaultsRepository;
         }
 
-        public DartGameSetting Load()
+        public DartGameSetting Load(string fileName)
         {
-            var dartGameSetting = _dartGameSettingLoadRepository.Load() ?? _dartGameSettingLoadDefaultsRepository.Load();
+            var dartGameSetting =
+                _dartGameSettingLoadRepository.Load(fileName) ?? _dartGameSettingLoadDefaultsRepository.Load();
             return dartGameSetting;
         }
     }

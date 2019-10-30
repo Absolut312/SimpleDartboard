@@ -8,12 +8,12 @@ namespace SimpleDartBoard.DAL.UseCases.DartGameSettings.Load
 {
     public class DartGameSettingLoadRepository: IDartGameSettingLoadRepository
     {
-        public DartGameSetting Load()
+        public DartGameSetting Load(string fileName)
         {
             var serializedDartGameSetting = "";
-            if (File.Exists(DartGameSettingSaveRepository.DartGameSettingJsonFileName))
+            if (File.Exists(DartGameSettingSaveRepository.DartGameSettingDirectory+fileName))
             {
-                serializedDartGameSetting = File.ReadAllText(DartGameSettingSaveRepository.DartGameSettingJsonFileName);
+                serializedDartGameSetting = File.ReadAllText(DartGameSettingSaveRepository.DartGameSettingDirectory+fileName);
             }
             var dartGameSetting = JsonConvert.DeserializeObject<DartGameSetting>(serializedDartGameSetting);
             return dartGameSetting;

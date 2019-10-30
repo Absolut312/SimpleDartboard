@@ -41,15 +41,21 @@ namespace SimpleDartboard.PAL.ViewModels
             if (_dartGameSetting.PlayerOne.Name == PlayerScoreBoardViewModel.Name)
             {
                 _dartGameSetting.PlayerOne.LegAmount = PlayerScoreBoardViewModel.Legs.Count;
+                _dartGameSetting.PlayerOne.IsFirstSelected = false;
+                _dartGameSetting.PlayerTwo.IsFirstSelected = true;
             }
             else
             {
                 _dartGameSetting.PlayerTwo.LegAmount = PlayerScoreBoardViewModel.Legs.Count;
+                _dartGameSetting.PlayerTwo.IsFirstSelected = false;
+                _dartGameSetting.PlayerOne.IsFirstSelected = true;
             }
         }
 
         private void StartNewGame()
         {
+            _dartGameSetting.PlayerOne.ScoreActions.Clear();
+            _dartGameSetting.PlayerTwo.ScoreActions.Clear();
             Mediator.NotifyColleagues(MessageType.StartGame, _dartGameSetting);
         }
     }

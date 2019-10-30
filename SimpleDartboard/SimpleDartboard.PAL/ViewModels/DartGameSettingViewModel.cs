@@ -74,6 +74,30 @@ namespace SimpleDartboard.PAL.ViewModels
             }
         }
 
+        public bool PlayerOneIsFirstSelected
+        {
+            get { return _dartGameSetting.PlayerOne.IsFirstSelected; }
+            set
+            {
+                _dartGameSetting.PlayerOne.IsFirstSelected = value;
+                _dartGameSetting.PlayerTwo.IsFirstSelected = !value;
+                OnPropertyChanged("PlayerOneIsFirstSelected");
+                OnPropertyChanged("PlayerTwoIsFirstSelected");
+            }
+        }
+
+        public bool PlayerTwoIsFirstSelected
+        {
+            get { return _dartGameSetting.PlayerTwo.IsFirstSelected; }
+            set
+            {
+                _dartGameSetting.PlayerOne.IsFirstSelected = !value;
+                _dartGameSetting.PlayerTwo.IsFirstSelected = value;
+                OnPropertyChanged("PlayerOneIsFirstSelected");
+                OnPropertyChanged("PlayerTwoIsFirstSelected");
+            }
+        }
+
         public DartGameSettingViewModel(IDartGameSettingLoadService dartGameSettingLoadService,
             IDartGameSettingSaveService dartGameSettingSaveService)
         {
@@ -90,12 +114,16 @@ namespace SimpleDartboard.PAL.ViewModels
 
         private void InitializeDartGameSetting(object obj)
         {
-            _dartGameSetting = _dartGameSettingLoadService.Load();
+            _dartGameSetting = _dartGameSettingLoadService.Load(DartGameSettingFileName);
         }
+
+        private static string DartGameSettingFileName => "DartGameSetting.json";
 
         private void StartGame()
         {
-            _dartGameSettingSaveService.Save(_dartGameSetting);
+            _dartGameSetting.PlayerOne.ScoreActions.Clear();
+            _dartGameSetting.PlayerTwo.ScoreActions.Clear();
+            _dartGameSettingSaveService.Save(_dartGameSetting,DartGameSettingFileName);
             Mediator.NotifyColleagues(MessageType.StartGame, _dartGameSetting);
         }
     }
