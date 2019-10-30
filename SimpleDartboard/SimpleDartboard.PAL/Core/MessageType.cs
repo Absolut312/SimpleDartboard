@@ -14,6 +14,7 @@ namespace SimpleDartboard.PAL.Core
         ShowWinner,
         ClearActionTokens,
         UpdateNavigationbar,
-        HideNavigationbar
+        HideNavigationbar,
+        Shutdown
     }
 }
