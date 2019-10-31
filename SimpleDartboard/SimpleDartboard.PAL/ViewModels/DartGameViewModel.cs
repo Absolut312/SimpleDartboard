@@ -202,6 +202,10 @@ namespace SimpleDartboard.PAL.ViewModels
         {
             if (!(scoreActionObject is ScoreAction scoreAction)) return;
             SelectedPlayer.AddScoreAction(scoreAction);
+            if (SelectedPlayer.CurrentScore == 0)
+            {
+                Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, false);
+            }
         }
 
         private void SwitchSelectedPlayer(object obj)

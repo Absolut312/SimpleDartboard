@@ -68,8 +68,7 @@ namespace SimpleDartboard.PAL.ViewModels
             AverageScoreActionsPerRound.AddScoreAction(scoreAction);
             OnPropertyChanged("AverageScoreActionsPerRound");
             if (CurrentScore > 1) return;
-            if (CurrentScore == 0 && scoreAction.Multiplier != 2) AverageScoreActionsPerRound.RevertLastScoreActions();
-            if (CurrentScore < 0 || CurrentScore == 1) AverageScoreActionsPerRound.RevertAllScoreActions();
+            if (CurrentScore < 0 || CurrentScore == 1 || (CurrentScore == 0 && scoreAction.Multiplier != 2)) AverageScoreActionsPerRound.RevertAllScoreActions();
             OnPropertyChanged("AverageScoreActionsPerRound");
             OnPropertyChanged("CurrentScore");
         }
