@@ -32,9 +32,7 @@ namespace SimpleDartboard.PAL.ViewModels
                 Mediator.NotifyColleagues(MessageType.SetIsDartboardScoreInputActive, false);
             }
             Mediator.NotifyColleagues(MessageType.DisableUndoLastScoreAction, false);
-            OnPropertyChanged("AverageScoreActions");
-            OnPropertyChanged("ScoreActionSum");
-            OnPropertyChanged("CommaSeparatedScoreActions");
+            RaiseOnPropertyChanged();
         }
 
         public void UndoLastScoreAction()
@@ -48,9 +46,7 @@ namespace SimpleDartboard.PAL.ViewModels
             _scoreActions.RemoveAt(_scoreActions.Count - 1);
             Mediator.NotifyColleagues(MessageType.DisableUndoLastScoreAction, _scoreActions.Count == 0);
             
-            OnPropertyChanged("AverageScoreActions");
-            OnPropertyChanged("ScoreActionSum");
-            OnPropertyChanged("CommaSeparatedScoreActions");
+            RaiseOnPropertyChanged();
         }
 
         public List<ScoreAction> GetAllScoreActions()
@@ -62,6 +58,10 @@ namespace SimpleDartboard.PAL.ViewModels
         {
             _scoreActions.Clear();
             Mediator.NotifyColleagues(MessageType.DisableUndoLastScoreAction, true);
+        }
+
+        private void RaiseOnPropertyChanged()
+        {
             OnPropertyChanged("AverageScoreActions");
             OnPropertyChanged("CommaSeparatedScoreActions");
             OnPropertyChanged("ScoreActionSum");
